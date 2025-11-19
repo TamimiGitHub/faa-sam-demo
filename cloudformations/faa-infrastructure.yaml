@@ -1,0 +1,550 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'FAA Infrastructure with DocumentDB, Elastic Beanstalk, and Solace'
+
+Metadata:
+  AWS::CloudFormation::Interface:
+    ParameterGroups:
+      - Label:
+          default: "Network Configuration"
+        Parameters:
+          - VpcId
+          - ExistingSubnetIds
+      - Label:
+          default: "Access Configuration"
+        Parameters:
+          - KeyPairName
+    ParameterLabels:
+      VpcId:
+        default: "VPC ID"
+      ExistingSubnetIds:
+        default: "Existing Subnet IDs (Optional)"
+      KeyPairName:
+        default: "EC2 Key Pair (Optional)"
+
+Parameters:
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+    Description: VPC ID for resources
+  ExistingSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: Existing subnet IDs in different AZs (optional)
+    Default: ''
+  KeyPairName:
+    Type: String
+    Description: EC2 Key Pair for SSH access (optional)
+    Default: ''
+
+Conditions:
+  HasKeyPair: !Not [!Equals [!Ref KeyPairName, '']]
+  CreateSubnets: !Equals [!Join ['', !Ref ExistingSubnetIds], '']
+
+Resources:
+  # Private Subnet 1 (only created if no existing subnets provided)
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Condition: CreateSubnets
+    Properties:
+      VpcId: !Ref VpcId
+      CidrBlock: 172.31.64.0/20
+      AvailabilityZone: !Select [0, !GetAZs '']
+      Tags:
+        - Key: Name
+          Value: Private Subnet 1
+
+  # Private Subnet 2 (only created if no existing subnets provided)
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Condition: CreateSubnets
+    Properties:
+      VpcId: !Ref VpcId
+      CidrBlock: 172.31.80.0/20
+      AvailabilityZone: !Select [1, !GetAZs '']
+      Tags:
+        - Key: Name
+          Value: Private Subnet 2
+
+  # Secrets Manager for DocumentDB password
+  DocumentDBSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: faa/documentdb/password
+      Description: DocumentDB password for FAA cluster
+      SecretString: !Sub
+        - '{"spring.data.mongodb.uri": "mongodb://faa:${Password}@${Endpoint}:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false&tls=false"}'
+        - Password: !Sub '{{resolve:secretsmanager:${DocumentDBPasswordSecret}:SecretString:password}}'
+          Endpoint: !GetAtt DocumentDBCluster.Endpoint
+
+  # Separate secret for DocumentDB password
+  DocumentDBPasswordSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: faa/documentdb/password-internal
+      Description: Internal DocumentDB password storage
+      SecretString: '{"username": "faa", "password": "faaistheb3st"}'
+
+  # Solace SCDS Broker Secret
+  SolaceBrokerSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: solace/scds/broker
+      Description: Solace broker configuration for SCDS
+      SecretString: !Sub |
+        {
+          "spring.cloud.stream.binders.local-solace.environment.solace.java.host": "tcps://TBD.messaging.solace.cloud:55443",
+          "spring.cloud.stream.binders.local-solace.environment.solace.java.username": "reinvent25",
+          "spring.cloud.stream.binders.local-solace.environment.solace.java.password": "reinvent25"
+        }
+
+  # DocumentDB Parameter Group
+  DocumentDBParameterGroup:
+    Type: AWS::DocDB::DBClusterParameterGroup
+    Properties:
+      Description: Parameter group for DocumentDB with TLS disabled
+      Family: docdb5.0
+      Parameters:
+        tls: "disabled"
+
+  # DocumentDB Subnet Group
+  DocumentDBSubnetGroup:
+    Type: AWS::DocDB::DBSubnetGroup
+    Properties:
+      DBSubnetGroupName: faa-documentdb-subnet-group
+      DBSubnetGroupDescription: Subnet group for DocumentDB
+      SubnetIds: !If
+        - CreateSubnets
+        - [!Ref PrivateSubnet1, !Ref PrivateSubnet2]
+        - !Ref ExistingSubnetIds
+
+  # DocumentDB Security Group
+  DocumentDBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for DocumentDB
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 27017
+          ToPort: 27017
+          SourceSecurityGroupId: !Ref ElasticBeanstalkSecurityGroup
+  # DocumentDB Cluster
+  DocumentDBCluster:
+    Type: AWS::DocDB::DBCluster
+    Properties:
+      DBClusterIdentifier: faa-data
+      MasterUsername: faa
+      MasterUserPassword: !Sub '{{resolve:secretsmanager:${DocumentDBPasswordSecret}:SecretString:password}}'
+      DBSubnetGroupName: !Ref DocumentDBSubnetGroup
+      DBClusterParameterGroupName: !Ref DocumentDBParameterGroup
+      VpcSecurityGroupIds:
+        - !Ref DocumentDBSecurityGroup
+      StorageEncrypted: true
+      BackupRetentionPeriod: 7
+      PreferredBackupWindow: "03:00-04:00"
+      PreferredMaintenanceWindow: "sun:04:00-sun:05:00"
+
+  # DocumentDB Instances
+  DocumentDBInstance1:
+    Type: AWS::DocDB::DBInstance
+    Properties:
+      DBClusterIdentifier: !Ref DocumentDBCluster
+      DBInstanceClass: db.t3.medium
+      
+  DocumentDBInstance2:
+    Type: AWS::DocDB::DBInstance
+    Properties:
+      DBClusterIdentifier: !Ref DocumentDBCluster
+      DBInstanceClass: db.t3.medium
+      
+  DocumentDBInstance3:
+    Type: AWS::DocDB::DBInstance
+    Properties:
+      DBClusterIdentifier: !Ref DocumentDBCluster
+      DBInstanceClass: db.t3.medium
+
+  # Elastic Beanstalk Application
+  ElasticBeanstalkApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: FDPS
+      Description: FAA Data Processing System
+
+  # STDDS Elastic Beanstalk Application
+  STDDSElasticBeanstalkApplication:
+    Type: AWS::ElasticBeanstalk::Application
+    Properties:
+      ApplicationName: STDDS
+      Description: STDDS Data Processing System
+
+  # S3 Bucket for application
+  FDPSApplicationS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'fdps-app-${AWS::AccountId}-${AWS::Region}-${AWS::StackName}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # S3 Bucket for STDDS application
+  STDDSApplicationS3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub 'stdds-app-${AWS::AccountId}-${AWS::Region}-${AWS::StackName}'
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+
+  # Lambda to download JAR file
+  DownloadJarFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: DownloadFDPSJar
+      Runtime: python3.9
+      Handler: index.handler
+      Role: !GetAtt DownloadJarRole.Arn
+      Timeout: 300
+      Code:
+        ZipFile: |
+          import boto3
+          import urllib.request
+          import cfnresponse
+          
+          def handler(event, context):
+              try:
+                  if event['RequestType'] == 'Create':
+                      s3 = boto3.client('s3')
+                      bucket = event['ResourceProperties']['Bucket']
+                      key = event['ResourceProperties']['Key']
+                      url = event['ResourceProperties']['Url']
+                      
+                      urllib.request.urlretrieve(url, '/tmp/app.jar')
+                      s3.upload_file('/tmp/app.jar', bucket, key)
+                      
+                  cfnresponse.send(event, context, cfnresponse.SUCCESS, {})
+              except Exception as e:
+                  print(e)
+                  cfnresponse.send(event, context, cfnresponse.FAILED, {})
+
+  # Lambda execution role
+  DownloadJarRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: S3Access
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:PutObject
+                Resource: 
+                  - !Sub 'arn:aws:s3:::${FDPSApplicationS3Bucket}/*'
+                  - !Sub 'arn:aws:s3:::${STDDSApplicationS3Bucket}/*'
+
+  # Custom resource to download FDPS JAR
+  DownloadJarResource:
+    Type: AWS::CloudFormation::CustomResource
+    Properties:
+      ServiceToken: !GetAtt DownloadJarFunction.Arn
+      Bucket: !Ref FDPSApplicationS3Bucket
+      Key: FDPS-Position-Sink-0.0.3-SNAPSHOT.jar
+      Url: https://github.com/jschabowsky/solace-faa-scds-demo/releases/download/0.0.3/FDPS-Position-Sink-0.0.3-SNAPSHOT.jar
+
+  # Custom resource to download STDDS JAR
+  DownloadSTDDSJarResource:
+    Type: AWS::CloudFormation::CustomResource
+    Properties:
+      ServiceToken: !GetAtt DownloadJarFunction.Arn
+      Bucket: !Ref STDDSApplicationS3Bucket
+      Key: STDDS-Position-Sink-0.0.3-SNAPSHOT.jar
+      Url: https://github.com/jschabowsky/solace-faa-scds-demo/releases/download/0.0.3/STDDS-Position-Sink-0.0.3-SNAPSHOT.jar
+
+  # Elastic Beanstalk Application Version
+  ElasticBeanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    DependsOn: DownloadJarResource
+    Properties:
+      ApplicationName: !Ref ElasticBeanstalkApplication
+      Description: FDPS Application Version
+      SourceBundle:
+        S3Bucket: !Ref FDPSApplicationS3Bucket
+        S3Key: FDPS-Position-Sink-0.0.3-SNAPSHOT.jar
+
+  # STDDS Elastic Beanstalk Application Version
+  STDDSElasticBeanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    DependsOn: DownloadSTDDSJarResource
+    Properties:
+      ApplicationName: !Ref STDDSElasticBeanstalkApplication
+      Description: STDDS Application Version
+      SourceBundle:
+        S3Bucket: !Ref STDDSApplicationS3Bucket
+        S3Key: STDDS-Position-Sink-0.0.3-SNAPSHOT.jar
+
+  # Elastic Beanstalk Security Group
+  ElasticBeanstalkSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for Elastic Beanstalk environments
+      VpcId: !Ref VpcId
+      SecurityGroupEgress:
+        - IpProtocol: tcp
+          FromPort: 27017
+          ToPort: 27017
+          DestinationSecurityGroupId: !Ref DocumentDBSecurityGroup
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  # Elastic Beanstalk Service Role
+  ElasticBeanstalkServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: elasticbeanstalk.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkManagedUpdatesCustomerRolePolicy
+
+  # Elastic Beanstalk Instance Profile
+  ElasticBeanstalkInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Roles:
+        - !Ref ElasticBeanstalkInstanceRole
+
+  # Elastic Beanstalk Instance Role
+  ElasticBeanstalkInstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker
+        - arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier
+      Policies:
+        - PolicyName: SecretsManagerAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                Resource: 
+                  - !Ref DocumentDBSecret
+                  - !Ref DocumentDBPasswordSecret
+                  - !Ref SolaceBrokerSecret
+
+  # Elastic Beanstalk Environment
+  FDPSElasticBeanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref ElasticBeanstalkApplication
+      EnvironmentName: FDPS-Environment
+      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      VersionLabel: !Ref ElasticBeanstalkApplicationVersion
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value: !Ref ElasticBeanstalkInstanceProfile
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: SecurityGroups
+          Value: !Ref ElasticBeanstalkSecurityGroup
+        - Namespace: aws:ec2:vpc
+          OptionName: VPCId
+          Value: !Ref VpcId
+        - Namespace: aws:ec2:vpc
+          OptionName: Subnets
+          Value: !If
+            - CreateSubnets
+            - !Join [',', [!Ref PrivateSubnet1, !Ref PrivateSubnet2]]
+            - !Join [',', !Ref ExistingSubnetIds]
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_DATA_MONGODB_URI
+          Value: !Sub '{{resolve:secretsmanager:${DocumentDBSecret}:SecretString:spring.data.mongodb.uri}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_HOST
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.host}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_USERNAME
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.username}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_PASSWORD
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.password}}'
+
+  # STDDS Elastic Beanstalk Environment
+  STDDSElasticBeanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref STDDSElasticBeanstalkApplication
+      EnvironmentName: STDDS-Environment
+      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      VersionLabel: !Ref STDDSElasticBeanstalkApplicationVersion
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value: !Ref ElasticBeanstalkInstanceProfile
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: SecurityGroups
+          Value: !Ref ElasticBeanstalkSecurityGroup
+        - Namespace: aws:ec2:vpc
+          OptionName: VPCId
+          Value: !Ref VpcId
+        - Namespace: aws:ec2:vpc
+          OptionName: Subnets
+          Value: !If
+            - CreateSubnets
+            - !Join [',', [!Ref PrivateSubnet1, !Ref PrivateSubnet2]]
+            - !Join [',', !Ref ExistingSubnetIds]
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_DATA_MONGODB_URI
+          Value: !Sub '{{resolve:secretsmanager:${DocumentDBSecret}:SecretString:spring.data.mongodb.uri}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_HOST
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.host}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_USERNAME
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.username}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_PASSWORD
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.password}}'
+
+  # EC2 Security Group for Solace
+  SolaceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for Solace broker
+      VpcId: !Ref VpcId
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 55555
+          ToPort: 55555
+          CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+
+  # EC2 Instance for Solace
+  SolaceInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Sub '{{resolve:ssm:/aws/service/ami-amazon-linux-latest/amzn2-ami-hvm-x86_64-gp2}}'
+      InstanceType: t3.medium
+      KeyName: !If [HasKeyPair, !Ref KeyPairName, !Ref 'AWS::NoValue']
+      SecurityGroupIds:
+        - !Ref SolaceSecurityGroup
+      SubnetId: !If
+        - CreateSubnets
+        - !Ref PrivateSubnet1
+        - !Select [0, !Ref ExistingSubnetIds]
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash
+          yum update -y
+          yum install -y docker git
+          systemctl start docker
+          systemctl enable docker
+          usermod -a -G docker ec2-user
+          
+          # Install docker-compose
+          curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+          
+          # Clone and run Solace
+          cd /home/ec2-user
+          git clone https://github.com/SolaceLabs/solace-single-docker-compose.git
+          cd solace-single-docker-compose/template
+          docker-compose -f PubSubStandard_singleNode.yml up -d
+          
+          # Log status for verification
+          echo "Docker status:" >> /var/log/solace-setup.log
+          docker ps >> /var/log/solace-setup.log
+          echo "Setup completed at $(date)" >> /var/log/solace-setup.log
+      Tags:
+        - Key: Name
+          Value: Solace-Broker
+
+Outputs:
+  DocumentDBEndpoint:
+    Description: DocumentDB cluster endpoint
+    Value: !GetAtt DocumentDBCluster.Endpoint
+    
+  # FDPSElasticBeanstalkURL:
+  #   Description: FDPS Elastic Beanstalk application URL
+  #   Value: !GetAtt FDPSElasticBeanstalkEnvironment.EndpointURL
+    
+  # STDDSElasticBeanstalkURL:
+  #   Description: STDDS Elastic Beanstalk application URL
+  #   Value: !GetAtt STDDSElasticBeanstalkEnvironment.EndpointURL
+    
+  SolaceInstanceIP:
+    Description: Solace broker public IP
+    Value: !GetAtt SolaceInstance.PublicIp
+    
+  # SecretArn:
+  #   Description: DocumentDB secret ARN
+  #   Value: !Ref DocumentDBSecret
+
+  # SolaceBrokerSecretArn:
+  #   Description: Solace broker secret ARN
+  #   Value: !Ref SolaceBrokerSecret
+
+  # STDDSBucketName:
+  #   Description: S3 bucket name for STDDS application
+  #   Value: !Ref STDDSApplicationS3Bucket
+    
+  # FDPSBucketName:
+  #   Description: S3 bucket name for FDPS application
+  #   Value: !Ref FDPSApplicationS3Bucket
+
+  FAABrokerHOST:
+    Description: FAA Broker Host
+    Value: tcps://flight-tracking.messaging.solace.cloud:55443
+
+  FAABrokerUSER:
+    Description: FAA Broker User
+    Value: reinvent25
+
+  FAABrokerPASS:
+    Description: FAA Broker Password
+    Value: reinvent25
+
+  FAABrokerMSGVPN:
+    Description: FAA Broker Message VPN
+    Value: scds

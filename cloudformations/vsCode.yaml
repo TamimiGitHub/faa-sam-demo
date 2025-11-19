@@ -37,6 +37,7 @@ Parameters:
   RepoUrl:
     Description: Remote repo URL to clone. To not clone a remote repo, leave blank
     Type: String
+    # Default: 'https://github.com/aws-samples/sample-amazon-bedrock-agentcore-prototype-to-production.git'
     Default: 'https://github.com/TamimiGitHub/faa-sam-demo.git'
   AssetZipS3Path:
     Description: S3 path holding the asset zip file to be copied into the home folder. To not include any assets, leave blank
@@ -686,7 +687,10 @@ Resources:
                       {
                         "command": "workbench.action.terminal.new"
                       }
-                    ]
+                    ],
+                    "workbench.editorAssociations": {
+                      "*.md": "vscode.markdown.preview.editor"
+                    }
                   }
                   EOF
                 - !Sub chown -R ${CodeEditorUser}:${CodeEditorUser} /home/${CodeEditorUser}

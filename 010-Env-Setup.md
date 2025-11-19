@@ -1,3 +1,13 @@
+# FAA SAM Demo -
+
+## Table of Contents
+- [Environment Setup](#environment-setup)
+   - [Access the VSCode URL](#access-the-vscode-url)
+   - [Installing Solace Agent Mesh](#installing-solace-agent-mesh)
+   - [Configuring Solace Agent Mesh](#configuring-solace-agent-mesh)
+   - [Optional: Adding prompts to SAM](#optional-adding-prompts)
+   - [Next Steps](#next-steps)
+
 # Environment Setup
 
 ## Access the VSCode URL
@@ -122,4 +132,7 @@ After initializing sam, you should now see a
 
 1. Navigate to the sam web UI. Note you can get the URL from the cloudformation output
 
+## [Optional] Adding prompts to SAM
+
+## Next Steps
 Now you can follow the workshop parts in order, starting with [Part 1: Data Streams](100-Data-Streams.md)

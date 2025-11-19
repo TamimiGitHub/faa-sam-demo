@@ -1,4 +1,18 @@
-# Workshop: Agnetic AI with Realtime FAA Data
+# Workshop: Agentic AI with Realtime FAA Data
+
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Prerequisites](#prerequisites)
+3. [Prepare AWS Environment](#prepare-aws-environment)
+4. [Workshop Structure](#workshop-structure)
+5. [Getting Started](#getting-started)
+6. [Support](#support)
+7. [Additional Resources](#additional-resources)
+8. [Note on AWS Environment Setup](#note-on-aws-environment-setup)
+   - [Running it on your own](#running-it-on-your-own)
+
+## Workshop: Agnetic AI with Realtime FAA Data
 
 ## Overview
 

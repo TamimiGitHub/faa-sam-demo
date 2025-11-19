@@ -1,4 +1,4 @@
-# FAA SAM Demo -
+# Environment Setup
 
 ## Table of Contents
 - [Environment Setup](#environment-setup)
@@ -7,8 +7,6 @@
    - [Configuring Solace Agent Mesh](#configuring-solace-agent-mesh)
    - [Optional: Adding prompts to SAM](#optional-adding-prompts)
    - [Next Steps](#next-steps)
-
-# Environment Setup
 
 ## Access the VSCode URL
 1. Navigate to the AWS Console

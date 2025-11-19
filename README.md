@@ -3,6 +3,11 @@
 ## Table of Contents
 
 1. [Overview](#overview)
+   - [The Mission](#the-mission)
+   - [The Challenge](#the-challenge)
+   - [Your Task: "Chat with your Data"](#your-task-chat-with-your-data)
+   - [The Technical Landscape](#the-technical-landscape)
+   - [Topic Structure](#topic-structure)
 2. [Prerequisites](#prerequisites)
 3. [Prepare AWS Environment](#prepare-aws-environment)
 4. [Workshop Structure](#workshop-structure)
@@ -12,11 +17,36 @@
 8. [Note on AWS Environment Setup](#note-on-aws-environment-setup)
    - [Running it on your own](#running-it-on-your-own)
 
-## Workshop: Agnetic AI with Realtime FAA Data
+## Workshop: Agentic AI with Realtime FAA Data
 
 ## Overview
 
 Hi there! Welcome to our AWS Re:Invent 2025 workshop 👋 In this hands-on workshop, you will explore how to use Solace Agent Mesh and AWS resources to analyze real-time FAA (Federal Aviation Administration) flight data streams. This workshop demonstrates how to transform complex aviation data into actionable insights using AI-powered agents and natural language queries.
+
+### 🎯 The Mission
+Imagine you're part of an elite team of FAA engineers tasked with revolutionizing how aviation professionals interact with flight data. Your mission? To harness the power of AI and transform the way flight planners, operators, and controllers access critical information.
+
+### 🤔 The Challenge
+Every day, aviation professionals face a common hurdle: while they're experts in their domain, navigating the FAA's vast ocean of data sources can be overwhelming. They know what they need, but finding it in the complex web of aviation data? That's where things get turbulent.
+
+### 🌟 Your Task: "Chat with your Data"
+You'll build an intelligent system that lets aviation professionals simply ask questions in plain English and get instant, accurate answers from real-time flight data. No more digging through complex databases or decoding technical data structures!
+
+### 🌐 The Technical Landscape
+- The FAA's real-time flight information flows through a sophisticated publish/subscribe messaging system, powered by the Solace Event Mesh
+- This system lets users tap into exactly the data streams they need, creating an efficient, dynamic flow of information
+- To make this data AI-ready, we're capturing a 10-minute historical window in DocumentDB (Don't worry, we've already set this up in your workshop environment!)
+
+### Topic Structure
+The FAA stream is being published on the following topic hierarchy
+
+```
+FDPS/position/{FLIGHT_ID}/{STATUS}/{CALLSIGN}/{ORIGIN}/{DESTINATION}/{LATITUDE}/{LONGITUDE}/{GROUND_SPEED}/{ALTITUDE}/{HEADING}
+```
+And
+```
+STDDS/position/{AIRPORT_CODE}/{FLIGHT_ID}
+```
 
 By the end of this workshop, you will have built a multi-agent system that can:
 - Interact with real-time flight data from multiple FAA systems
@@ -24,10 +54,12 @@ By the end of this workshop, you will have built a multi-agent system that can:
 - Generate automated landing reports
 - Provide operational insights to flight planners, operators, and controllers
 
-You will use: 
+You will use:
 - AWS resources: EC2 Instances, DocumentDB, Bedrock LLM, AgentCore
 - Agentic Frameworks: MCP, A2A, Strands, Solace Agent Mesh
 - Solace Platform: Event Broker
+
+Ready for takeoff? Let's transform how aviation professionals interact with their data! ✈️
 
 ## Prerequisites
 

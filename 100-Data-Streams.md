@@ -1,4 +1,20 @@
-# The Data Streams - FDPS, STDDS, and RAG
+# Table of Contents
+
+1. [Introduction to FAA Systems](#introduction-to-faa-systems)
+   - [FDPS (Flight Data Processing System)](#fdps-flight-data-processing-system)
+   - [STDDS (Surface Data Distribution System)](#stdds-surface-data-distribution-system)
+2. [Understanding System Documentation with RAG](#understanding-system-documentation-with-rag)
+3. [Exercise: Create a RAG agent](#exercise-create-a-rag-agent)
+   - [Step 1: Add the RAG Plugin](#step-1-add-the-rag-plugin)
+   - [Step 2: Configure the RAG Agent](#step-2-configure-the-rag-agent)
+   - [Step 3: Set Up Environment Variables](#step-3-set-up-environment-variables)
+   - [Step 4: Create Document Directory](#step-4-create-document-directory)
+   - [Step 5: Run the RAG Agent](#step-5-run-the-rag-agent)
+   - [Step 6: Verify Agent Setup](#step-6-verify-agent-setup)
+4. [Exercise: Analyzing System Documentation](#exercise-analyzing-system-documentation)
+   - [Step 1: Upload CONOPS Documents](#step-1-upload-conops-documents)
+   - [Step 2: Query the RAG Agent](#step-2-query-the-rag-agent)
+5. [Next Steps](#next-steps) The Data Streams - FDPS, STDDS, and RAG
 
 ## Introduction to FAA Systems
 

@@ -133,4 +133,4 @@ After initializing sam, you should now see a
 ## [Optional] Adding prompts to SAM
 
 ## Next Steps
-Now you can follow the workshop parts in order, starting with [Part 1: Data Streams](100-Data-Streams.md)
+Now you can follow the workshop parts in order, starting with [Part 1: Standard Operating Procedures](100-SOPs.md)

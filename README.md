@@ -75,7 +75,7 @@ To setup your AWS Environment, please follow the steps in the [Environment Setup
 
 This workshop is divided into the following  parts:
 
-1. [Data Streams](100-Data-Streams.md) - Understanding FDPS, STDDS, and RAG
+1. [Standard Operating Procedures](100-SOPs.md) - Understanding FDPS, STDDS, and RAG
 1. [Data Layer](200-Data-Layer.md) - Setting up the data infrastructure
 1. [DocumentDB Agents](300-DocumentDB-Agents.md) - Creating database agents
 1. [Natural Language Queries](400-Natural-Language.md) - Querying data using natural language
@@ -84,7 +84,7 @@ This workshop is divided into the following  parts:
 
 ## Getting Started
 
-Follow the workshop parts in order, starting with [Part 1: Data Streams](100-Data-Streams.md)
+Follow the workshop parts in order, starting with [Part 1: Standard Operating Procedures](100-SOPs.md)
 
 ## Support
 

@@ -1,5 +1,15 @@
 # Part 2: Setting Up the Data Layer
 
+## Table of Contents
+- [Understanding Your Workshop Environment](#understanding-your-workshop-environment)
+- [Collection Overview](#collection-overview)
+  - [FDPSPosition Collection](#fdpsposition-collection)
+  - [STDDSPosition Collection](#stddsposition-collection)
+- [Data Ingestion Architecture](#data-ingestion-architecture)
+- [Understanding the Data Flow](#understanding-the-data-flow)
+- [Next Steps](#next-steps)
+
+
 ## Understanding Your Workshop Environment
 
 Your workshop environment includes a pre-configured DocumentDB instance that serves as the data layer for this exercise. This instance contains the primary collections that store real-time flight data.

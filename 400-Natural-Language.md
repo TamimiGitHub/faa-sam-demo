@@ -1,5 +1,16 @@
 # Part 4: Asking Questions in Natural Language
 
+## Table of Contents
+- [Exercise: Querying Inbound Flights](#exercise-querying-inbound-flights)
+  - [Query for LAS Arrivals](#query-for-las-arrivals)
+  - [Understanding the Response](#understanding-the-response)
+- [Exercise: Querying Ground Operations](#exercise-querying-ground-operations)
+  - [Query for Ground Traffic](#query-for-ground-traffic)
+  - [Understanding the Response](#understanding-the-response-1)
+- [Extracting Operational Insights](#extracting-operational-insights)
+- [Advanced Queries](#advanced-queries)
+- [Next Steps](#next-steps)
+
 Now that your agents are connected and tested, you can begin querying the data using natural language. Agent Mesh will interpret your questions, determine which agent(s) to consult, construct appropriate database queries, and present the results in a user-friendly format.
 
 ## Exercise: Querying Inbound Flights

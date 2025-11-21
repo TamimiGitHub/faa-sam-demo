@@ -1,5 +1,20 @@
 # Part 3: Creating DocumentDB Agents in Agent Mesh
 
+## Table of Contents
+- [Step 1: Create the FDPS DocumentDB Agent](#step-1-create-the-fdps-documentdb-agent)
+  - [Configure Agent Settings](#step-1-create-the-fdps-documentdb-agent)
+  - [Update Environment Variables](#step-1-create-the-fdps-documentdb-agent)
+  - [Run the Agent](#step-1-create-the-fdps-documentdb-agent)
+- [Step 2: Create the STDDS DocumentDB Agent](#step-2-create-the-stdds-documentdb-agent)
+  - [Configure Agent Settings](#step-2-create-the-stdds-documentdb-agent)
+  - [Update Environment Variables](#step-2-create-the-stdds-documentdb-agent)
+  - [Run the Agent](#step-2-create-the-stdds-documentdb-agent)
+- [Verify Agent Availability](#verify-agent-availability)
+  - [Test the FDPS Agent](#test-the-fdps-agent)
+  - [Test the STDDS Agent](#test-the-stdds-agent)
+  - [Review the Data Structures](#review-the-data-structures)
+- [Next Steps](#next-steps)
+
 Now that you understand the data layer, it's time to build agent that will connect to your DocumentDB collections. You'll create dedicated agents for each data source to enable parallel processing and maintain a clean architectural separation.
 
 ## Step 1: Create the FDPS DocumentDB Agent

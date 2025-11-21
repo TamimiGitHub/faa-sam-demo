@@ -37,7 +37,6 @@ Parameters:
   RepoUrl:
     Description: Remote repo URL to clone. To not clone a remote repo, leave blank
     Type: String
-    # Default: 'https://github.com/aws-samples/sample-amazon-bedrock-agentcore-prototype-to-production.git'
     Default: 'https://github.com/TamimiGitHub/faa-sam-demo.git'
   AssetZipS3Path:
     Description: S3 path holding the asset zip file to be copied into the home folder. To not include any assets, leave blank
@@ -1257,6 +1256,10 @@ Resources:
       Monitoring: true
       SecurityGroupIds:
         - !Ref SecurityGroup
+        - !Ref SecurityGroup8000
+        - !Ref SecurityGroup8080
+        - !Ref SecurityGroup5002
+        - !Ref SecurityGroup8008
       IamInstanceProfile: !Ref CodeEditorInstanceProfile
       UserData:
         Fn::Base64: !Sub |
@@ -1358,6 +1361,50 @@ Resources:
           IpProtocol: tcp
           FromPort: 80
           ToPort: 80
+          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+
+  SecurityGroup8000:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Code Editor - allow port 8000
+      SecurityGroupIngress:
+        - Description: Allow port 8000 from com.amazonaws.global.cloudfront.origin-facing
+          IpProtocol: tcp
+          FromPort: 8000
+          ToPort: 8000
+          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+
+  SecurityGroup8080:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Code Editor - allow port 8080
+      SecurityGroupIngress:
+        - Description: Allow port 8080 from com.amazonaws.global.cloudfront.origin-facing
+          IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+
+  SecurityGroup5002:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Code Editor - allow port 5002
+      SecurityGroupIngress:
+        - Description: Allow port 5002 from com.amazonaws.global.cloudfront.origin-facing
+          IpProtocol: tcp
+          FromPort: 5002
+          ToPort: 5002
+          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+
+  SecurityGroup8008:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security Group for Code Editor - allow port 8008
+      SecurityGroupIngress:
+        - Description: Allow port 8008 from com.amazonaws.global.cloudfront.origin-facing
+          IpProtocol: tcp
+          FromPort: 8008
+          ToPort: 8008
           SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
 
   CodeEditorHealthCheckLambdaRole:

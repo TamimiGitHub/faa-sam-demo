@@ -90,10 +90,18 @@ Resources:
       Description: Solace broker configuration for SCDS
       SecretString: !Sub |
         {
-          "spring.cloud.stream.binders.local-solace.environment.solace.java.host": "tcps://TBD.messaging.solace.cloud:55443",
+          "spring.cloud.stream.binders.local-solace.environment.solace.java.host": "tcps://flight-tracking.messaging.solace.cloud:55443",
           "spring.cloud.stream.binders.local-solace.environment.solace.java.username": "reinvent25",
           "spring.cloud.stream.binders.local-solace.environment.solace.java.password": "reinvent25"
         }
+
+  # AWS Account ID Secret
+  AWSAccountIDSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: aws/accountid
+      Description: AWS Account ID for FAA workshop
+      SecretString: !Sub '{"aws_account_id": "${AWS::AccountId}"}'
 
   # DocumentDB Parameter Group
   DocumentDBParameterGroup:
@@ -160,6 +168,15 @@ Resources:
     Properties:
       DBClusterIdentifier: !Ref DocumentDBCluster
       DBInstanceClass: db.t3.medium
+
+  # SSM Parameter for DocumentDB Cluster Endpoint
+  DocumentDBClusterEndpointParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /faa/documentdb/endpoint
+      Type: String
+      Value: !GetAtt DocumentDBCluster.Endpoint
+    DependsOn: DocumentDBCluster
 
   # Elastic Beanstalk Application
   ElasticBeanstalkApplication:
@@ -303,7 +320,7 @@ Resources:
         - IpProtocol: tcp
           FromPort: 27017
           ToPort: 27017
-          DestinationSecurityGroupId: !Ref DocumentDBSecurityGroup
+          CidrIp: 0.0.0.0/0
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
@@ -459,6 +476,10 @@ Resources:
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
+        - IpProtocol: tcp
+          FromPort: 8008
+          ToPort: 8008
+          CidrIp: 0.0.0.0/0
 
   # EC2 Instance for Solace
   SolaceInstance:
@@ -505,34 +526,14 @@ Outputs:
     Description: DocumentDB cluster endpoint
     Value: !GetAtt DocumentDBCluster.Endpoint
     
-  # FDPSElasticBeanstalkURL:
-  #   Description: FDPS Elastic Beanstalk application URL
-  #   Value: !GetAtt FDPSElasticBeanstalkEnvironment.EndpointURL
-    
-  # STDDSElasticBeanstalkURL:
-  #   Description: STDDS Elastic Beanstalk application URL
-  #   Value: !GetAtt STDDSElasticBeanstalkEnvironment.EndpointURL
-    
   SolaceInstanceIP:
     Description: Solace broker public IP
     Value: !GetAtt SolaceInstance.PublicIp
     
-  # SecretArn:
-  #   Description: DocumentDB secret ARN
-  #   Value: !Ref DocumentDBSecret
-
-  # SolaceBrokerSecretArn:
-  #   Description: Solace broker secret ARN
-  #   Value: !Ref SolaceBrokerSecret
-
-  # STDDSBucketName:
-  #   Description: S3 bucket name for STDDS application
-  #   Value: !Ref STDDSApplicationS3Bucket
+  SolaceBrokerEndpoint:
+    Description: Solace broker EC2 instance endpoint URL
+    Value: !GetAtt SolaceInstance.PublicDnsName
     
-  # FDPSBucketName:
-  #   Description: S3 bucket name for FDPS application
-  #   Value: !Ref FDPSApplicationS3Bucket
-
   FAABrokerHOST:
     Description: FAA Broker Host
     Value: tcps://flight-tracking.messaging.solace.cloud:55443

@@ -597,10 +597,6 @@ Outputs:
     Description: DocumentDB cluster endpoint
     Value: !GetAtt DocumentDBCluster.Endpoint
     
-  SolaceInstanceIP:
-    Description: Solace broker public IP
-    Value: !GetAtt SolaceInstance.PublicIp
-    
   SolaceBrokerEndpoint:
     Description: Solace broker EC2 instance endpoint URL
     Value: !GetAtt SolaceInstance.PublicDnsName
@@ -620,7 +616,3 @@ Outputs:
   FAABrokerMSGVPN:
     Description: FAA Broker Message VPN
     Value: scds
-
-  FlightPlanEnvironmentURL:
-    Description: URL of the Flight Plan Elastic Beanstalk Environment
-    Value: !Sub "http://${FlightPlanElasticBeanstalkEnvironment.EndpointURL}"

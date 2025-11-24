@@ -90,7 +90,7 @@ Resources:
       Description: Solace broker configuration for SCDS
       SecretString: !Sub |
         {
-          "spring.cloud.stream.binders.local-solace.environment.solace.java.host": "tcps://flight-tracking.messaging.solace.cloud:55443",
+          "spring.cloud.stream.binders.local-solace.environment.solace.java.host": "tcps://mr-connection-57h4pe49129.messaging.solace.cloud:55443",
           "spring.cloud.stream.binders.local-solace.environment.solace.java.username": "reinvent25",
           "spring.cloud.stream.binders.local-solace.environment.solace.java.password": "reinvent25"
         }
@@ -179,7 +179,7 @@ Resources:
     DependsOn: DocumentDBCluster
 
   # Elastic Beanstalk Application
-  ElasticBeanstalkApplication:
+  FDPSElasticBeanstalkApplication:
     Type: AWS::ElasticBeanstalk::Application
     Properties:
       ApplicationName: FDPS
@@ -271,7 +271,7 @@ Resources:
                   - !Sub 'arn:aws:s3:::${STDDSApplicationS3Bucket}/*'
 
   # Custom resource to download FDPS JAR
-  DownloadJarResource:
+  DownloadFDPSJarResource:
     Type: AWS::CloudFormation::CustomResource
     Properties:
       ServiceToken: !GetAtt DownloadJarFunction.Arn
@@ -288,16 +288,36 @@ Resources:
       Key: STDDS-Position-Sink-0.0.3-SNAPSHOT.jar
       Url: https://github.com/jschabowsky/solace-faa-scds-demo/releases/download/0.0.3/STDDS-Position-Sink-0.0.3-SNAPSHOT.jar
 
-  # Elastic Beanstalk Application Version
-  ElasticBeanstalkApplicationVersion:
-    Type: AWS::ElasticBeanstalk::ApplicationVersion
-    DependsOn: DownloadJarResource
+  # Download Flight Plan JAR Resource
+  DownloadFlightPlanJarResource:
+    Type: AWS::CloudFormation::CustomResource
     Properties:
-      ApplicationName: !Ref ElasticBeanstalkApplication
+      ServiceToken: !GetAtt DownloadJarFunction.Arn
+      Bucket: !Ref FDPSApplicationS3Bucket
+      Key: FDPS-FlightPlan-Sink-0.0.3-SNAPSHOT.jar
+      Url: https://github.com/jschabowsky/solace-faa-scds-demo/releases/download/0.0.3/FDPS-FlightPlan-Sink-0.0.3-SNAPSHOT.jar
+
+  # FDPS Elastic Beanstalk Application Version
+  FDPSElasticBeanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    DependsOn: DownloadFDPSJarResource
+    Properties:
+      ApplicationName: !Ref FDPSElasticBeanstalkApplication
       Description: FDPS Application Version
       SourceBundle:
         S3Bucket: !Ref FDPSApplicationS3Bucket
         S3Key: FDPS-Position-Sink-0.0.3-SNAPSHOT.jar
+
+  # Flight Plan Elastic Beanstalk Application Version
+  FlightPlanElasticBeanstalkApplicationVersion:
+    Type: AWS::ElasticBeanstalk::ApplicationVersion
+    DependsOn: DownloadFlightPlanJarResource
+    Properties:
+      ApplicationName: !Ref FDPSElasticBeanstalkApplication
+      Description: Flight Plan Application Version
+      SourceBundle:
+        S3Bucket: !Ref FDPSApplicationS3Bucket
+        S3Key: FDPS-FlightPlan-Sink-0.0.3-SNAPSHOT.jar
 
   # STDDS Elastic Beanstalk Application Version
   STDDSElasticBeanstalkApplicationVersion:
@@ -377,14 +397,14 @@ Resources:
                   - !Ref DocumentDBPasswordSecret
                   - !Ref SolaceBrokerSecret
 
-  # Elastic Beanstalk Environment
+  # FDPS Elastic Beanstalk Environment
   FDPSElasticBeanstalkEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
-      ApplicationName: !Ref ElasticBeanstalkApplication
+      ApplicationName: !Ref FDPSElasticBeanstalkApplication
       EnvironmentName: FDPS-Environment
       SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
-      VersionLabel: !Ref ElasticBeanstalkApplicationVersion
+      VersionLabel: !Ref FDPSElasticBeanstalkApplicationVersion
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
           OptionName: EnvironmentType
@@ -416,6 +436,9 @@ Resources:
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_PASSWORD
           Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.password}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: AWS_ACCOUNT_ID
+          Value: !Sub '{{resolve:secretsmanager:${AWSAccountIDSecret}:SecretString:aws_account_id}}'
 
   # STDDS Elastic Beanstalk Environment
   STDDSElasticBeanstalkEnvironment:
@@ -456,6 +479,52 @@ Resources:
         - Namespace: aws:elasticbeanstalk:application:environment
           OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_PASSWORD
           Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.password}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: AWS_ACCOUNT_ID
+          Value: !Sub '{{resolve:secretsmanager:${AWSAccountIDSecret}:SecretString:aws_account_id}}'
+
+  # Flight Plan Elastic Beanstalk Environment
+  FlightPlanElasticBeanstalkEnvironment:
+    Type: AWS::ElasticBeanstalk::Environment
+    Properties:
+      ApplicationName: !Ref FDPSElasticBeanstalkApplication
+      EnvironmentName: FlightPlan-Environment
+      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      VersionLabel: !Ref FlightPlanElasticBeanstalkApplicationVersion
+      OptionSettings:
+        - Namespace: aws:elasticbeanstalk:environment
+          OptionName: EnvironmentType
+          Value: SingleInstance
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: IamInstanceProfile
+          Value: !Ref ElasticBeanstalkInstanceProfile
+        - Namespace: aws:autoscaling:launchconfiguration
+          OptionName: SecurityGroups
+          Value: !Ref ElasticBeanstalkSecurityGroup
+        - Namespace: aws:ec2:vpc
+          OptionName: VPCId
+          Value: !Ref VpcId
+        - Namespace: aws:ec2:vpc
+          OptionName: Subnets
+          Value: !If
+            - CreateSubnets
+            - !Join [',', [!Ref PrivateSubnet1, !Ref PrivateSubnet2]]
+            - !Join [',', !Ref ExistingSubnetIds]
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_DATA_MONGODB_URI
+          Value: !Sub '{{resolve:secretsmanager:${DocumentDBSecret}:SecretString:spring.data.mongodb.uri}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_HOST
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.host}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_USERNAME
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.username}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: SPRING_CLOUD_STREAM_BINDERS_LOCAL_SOLACE_ENVIRONMENT_SOLACE_JAVA_PASSWORD
+          Value: !Sub '{{resolve:secretsmanager:${SolaceBrokerSecret}:SecretString:spring.cloud.stream.binders.local-solace.environment.solace.java.password}}'
+        - Namespace: aws:elasticbeanstalk:application:environment
+          OptionName: AWS_ACCOUNT_ID
+          Value: !Sub '{{resolve:secretsmanager:${AWSAccountIDSecret}:SecretString:aws_account_id}}'
 
   # EC2 Security Group for Solace
   SolaceSecurityGroup:
@@ -536,7 +605,7 @@ Outputs:
     
   FAABrokerHOST:
     Description: FAA Broker Host
-    Value: tcps://flight-tracking.messaging.solace.cloud:55443
+    Value: tcps://mr-connection-57h4pe49129.messaging.solace.cloud:55443
 
   FAABrokerUSER:
     Description: FAA Broker User
@@ -549,3 +618,7 @@ Outputs:
   FAABrokerMSGVPN:
     Description: FAA Broker Message VPN
     Value: scds
+
+  FlightPlanEnvironmentURL:
+    Description: URL of the Flight Plan Elastic Beanstalk Environment
+    Value: !Sub "http://${FlightPlanElasticBeanstalkEnvironment.EndpointURL}"

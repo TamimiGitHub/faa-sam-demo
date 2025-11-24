@@ -1,4 +1,4 @@
-# Part 4: Asking Questions in Natural Language
+# Asking Questions in Natural Language
 
 ## Table of Contents
 - [Exercise: Querying Inbound Flights](#exercise-querying-inbound-flights)

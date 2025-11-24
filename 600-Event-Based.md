@@ -1,4 +1,4 @@
-# Part 6: Event-Based Agentic AI
+# Event-Based Agentic AI
 
 So far, you've been querying data on-demand. In this section, you'll configure Agent Mesh to automatically generate reports in response to real-time events—specifically, when flights land.
 

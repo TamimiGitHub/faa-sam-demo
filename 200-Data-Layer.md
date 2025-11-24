@@ -1,4 +1,4 @@
-# Part 2: Setting Up the Data Layer
+# Setting Up the Data Layer
 
 ## Table of Contents
 - [Understanding Your Workshop Environment](#understanding-your-workshop-environment)

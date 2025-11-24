@@ -1,4 +1,4 @@
-# Part 3: Creating DocumentDB Agents in Agent Mesh
+# Creating DocumentDB Agents in Agent Mesh
 
 ## Table of Contents
 - [Step 1: Create the FDPS DocumentDB Agent](#step-1-create-the-fdps-documentdb-agent)

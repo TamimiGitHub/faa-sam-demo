@@ -1,4 +1,4 @@
-# Part 5: Adding Flight Plan Intelligence
+# Adding Flight Plan Intelligence
 
 To perform more sophisticated analysis, such as comparing actual flight paths to planned routes, you need access to flight plan data. In this section, you'll add another DocumentDB agent to access this information.
 

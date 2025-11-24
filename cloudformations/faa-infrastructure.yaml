@@ -396,6 +396,8 @@ Resources:
                   - !Ref DocumentDBSecret
                   - !Ref DocumentDBPasswordSecret
                   - !Ref SolaceBrokerSecret
+                  - !Ref AWSAccountIDSecret
+                  
 
   # FDPS Elastic Beanstalk Environment
   FDPSElasticBeanstalkEnvironment:

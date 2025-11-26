@@ -122,10 +122,6 @@ This workshop requires several AWS resources that are provisioned through CloudF
 ### Running it on your own
 
 1. Clone this repository:
-```bash
-git clone https://github.com/TamimiGitHub/faa-sam-demo
-cd faa-sam-demo
-```
 
 2. Deploy the AWS resources:
 Upload and deploy the cloud formations using the AWS Console UI

@@ -1,0 +1,509 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "object",
+      "properties": {
+        "flight": {
+          "type": "object",
+          "properties": {
+            "arrival": {
+              "type": "object",
+              "properties": {
+                "runwayPositionAndTime": {
+                  "type": "object",
+                  "properties": {
+                    "runwayTime": {
+                      "type": "object",
+                      "properties": {
+                        "estimated": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "time"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "estimated"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "runwayTime"
+                  ]
+                },
+                "arrivalPoint": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "runwayPositionAndTime",
+                "arrivalPoint"
+              ]
+            },
+            "controllingUnit": {
+              "type": "object",
+              "properties": {
+                "unitIdentifier": {
+                  "type": "string"
+                },
+                "sectorIdentifier": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "unitIdentifier",
+                "sectorIdentifier"
+              ]
+            },
+            "departure": {
+              "type": "object",
+              "properties": {
+                "runwayPositionAndTime": {
+                  "type": "object",
+                  "properties": {
+                    "runwayTime": {
+                      "type": "object",
+                      "properties": {
+                        "actual": {
+                          "type": "object",
+                          "properties": {
+                            "time": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "time"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "actual"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "runwayTime"
+                  ]
+                },
+                "departurePoint": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "runwayPositionAndTime",
+                "departurePoint"
+              ]
+            },
+            "enRoute": {
+              "type": "object",
+              "properties": {
+                "position": {
+                  "type": "object",
+                  "properties": {
+                    "actualSpeed": {
+                      "type": "object",
+                      "properties": {
+                        "surveillance": {
+                          "type": "object",
+                          "properties": {
+                            "uom": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "uom",
+                            "text"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "surveillance"
+                      ]
+                    },
+                    "altitude": {
+                      "type": "object",
+                      "properties": {
+                        "uom": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "uom",
+                        "text"
+                      ]
+                    },
+                    "position": {
+                      "type": "object",
+                      "properties": {
+                        "location": {
+                          "type": "object",
+                          "properties": {
+                            "pos": {
+                              "type": "string"
+                            },
+                            "srsName": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "pos",
+                            "srsName"
+                          ]
+                        },
+                        "xsi:type": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "location"
+                      ]
+                    },
+                    "targetAltitude": {
+                      "type": "object",
+                      "properties": {
+                        "uom": {
+                          "type": "string"
+                        },
+                        "text": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "uom",
+                        "text"
+                      ]
+                    },
+                    "targetPosition": {
+                      "type": "object",
+                      "properties": {
+                        "pos": {
+                          "type": "string"
+                        },
+                        "srsName": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "pos",
+                        "srsName"
+                      ]
+                    },
+                    "trackVelocity": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "object",
+                          "properties": {
+                            "uom": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "uom",
+                            "text"
+                          ]
+                        },
+                        "y": {
+                          "type": "object",
+                          "properties": {
+                            "uom": {
+                              "type": "string"
+                            },
+                            "text": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "uom",
+                            "text"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y"
+                      ]
+                    },
+                    "targetPositionTime": {
+                      "type": "string"
+                    },
+                    "positionTime": {
+                      "type": "string"
+                    },
+                    "reportSource": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "actualSpeed",
+                    "altitude",
+                    "position",
+                    "targetAltitude",
+                    "targetPosition",
+                    "trackVelocity",
+                    "targetPositionTime",
+                    "positionTime",
+                    "reportSource"
+                  ]
+                }
+              },
+              "required": [
+                "position"
+              ]
+            },
+            "flightIdentification": {
+              "type": "object",
+              "properties": {
+                "computerId": {
+                  "type": "string"
+                },
+                "siteSpecificPlanId": {
+                  "type": "string"
+                },
+                "aircraftIdentification": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "computerId",
+                "siteSpecificPlanId",
+                "aircraftIdentification"
+              ]
+            },
+            "flightStatus": {
+              "type": "object",
+              "properties": {
+                "fdpsFlightStatus": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "fdpsFlightStatus"
+              ]
+            },
+            "gufi": {
+              "type": "object",
+              "properties": {
+                "codeSpace": {
+                  "type": "string"
+                },
+                "text": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "codeSpace",
+                "text"
+              ]
+            },
+            "operator": {
+              "type": "object",
+              "properties": {
+                "operatingOrganization": {
+                  "type": "object",
+                  "properties": {
+                    "organization": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "organization"
+                  ]
+                }
+              },
+              "required": [
+                "operatingOrganization"
+              ]
+            },
+            "supplementalData": {
+              "type": "object",
+              "properties": {
+                "additionalFlightInformation": {
+                  "type": "object",
+                  "properties": {
+                    "nameValue": {
+                      "type": "array",
+                      "items": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "value"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "nameValue"
+                  ]
+                }
+              },
+              "required": [
+                "additionalFlightInformation"
+              ]
+            },
+            "assignedAltitude": {
+              "type": "object",
+              "properties": {
+                "simple": {
+                  "type": "object",
+                  "properties": {
+                    "uom": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "uom",
+                    "text"
+                  ]
+                }
+              },
+              "required": [
+                "simple"
+              ]
+            },
+            "flightPlan": {
+              "type": "object",
+              "properties": {
+                "identifier": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "identifier"
+              ]
+            },
+            "centre": {
+              "type": "string"
+            },
+            "source": {
+              "type": "string"
+            },
+            "system": {
+              "type": "string"
+            },
+            "timestamp": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "arrival",
+            "controllingUnit",
+            "departure",
+            "enRoute",
+            "flightIdentification",
+            "flightStatus",
+            "gufi",
+            "operator",
+            "supplementalData",
+            "assignedAltitude",
+            "flightPlan",
+            "centre",
+            "source",
+            "system",
+            "timestamp"
+          ]
+        }
+      },
+      "required": [
+        "flight"
+      ]
+    }
+  }
+}

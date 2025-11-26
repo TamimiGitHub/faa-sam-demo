@@ -15,7 +15,7 @@ Flight plans contain:
 
 ### Configure the Agent
 
-Following the same process used in Part 3, create a new DocumentDB agent:
+Following the same process used previously, create a new DocumentDB agent:
 
 1. In the Agent Mesh interface, navigate to "Add New Agent"
 2. Select "DocumentDB Agent" as the agent type
@@ -103,6 +103,6 @@ This multi-agent coordination demonstrates the power of Agent Mesh to orchestrat
 
 ## Next Steps
 
-In the final part of this workshop, we'll explore event-based Agentic AI, where we'll configure Agent Mesh to automatically generate reports in response to real-time events.
+In this part of this workshop, we'll explore event-based Agentic AI, where we'll configure Agent Mesh to automatically generate reports in response to real-time events.
 
-[Continue to Part 6: Event-Based Agentic AI](600-Event-Based.md)
+[Continue to Event-Based Agentic AI](600-Event-Based.md)

@@ -60,4 +60,4 @@ This architecture ensures that your DocumentDB instance always contains the most
 
 In the next part, we'll create DocumentDB agents in Agent Mesh to interact with this data layer. These agents will allow us to query and analyze the real-time flight data using natural language.
 
-[Continue to Part 3: Creating DocumentDB Agents in Agent Mesh](300-DocumentDB-Agents.md)
+[Continue to Creating DocumentDB Agents in Agent Mesh](300-DocumentDB-Agents.md)

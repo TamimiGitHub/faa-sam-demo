@@ -107,4 +107,4 @@ Remember, the power of natural language querying lies in its flexibility. Feel f
 
 In the next part, we'll add flight plan intelligence to our system, allowing for more sophisticated analysis such as comparing actual flight paths to planned routes.
 
-[Continue to Part 5: Adding Flight Plan Intelligence](500-Flight-Plan.md)
+[Continue to Adding Flight Plan Intelligence](500-Flight-Plan.md)

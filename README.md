@@ -84,7 +84,7 @@ This workshop is divided into the following  parts:
 
 ## Getting Started
 
-Follow the workshop parts in order, starting with [Part 1: Standard Operating Procedures](100-SOPs.md)
+Follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)
 
 ## Support
 
@@ -99,7 +99,7 @@ If you need assistance during the workshop:
 - [Event-Driven Architecture Patterns](https://solace.com/)
 - [AWS Agent Core](https://aws.amazon.com/bedrock/agentcore/)
 
-## Note on AWS Environment Setup
+## Note on AWS Environment Setup. [Skip if running in an AWS event]
 
 This workshop requires several AWS resources that are provisioned through CloudFormation templates found in the `cloudformations` directory. The template sets up:
 

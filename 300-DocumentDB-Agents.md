@@ -520,4 +520,4 @@ This knowledge will be essential for formulating effective natural language quer
 
 Now that we have our DocumentDB agents set up and connected, we're ready to start querying our flight data using natural language. In the next part, we'll explore how to ask questions about our data and interpret the results.
 
-[Continue to Part 4: Asking Questions in Natural Language](400-Natural-Language.md)
+[Continue to Asking Questions in Natural Language](400-Natural-Language.md)

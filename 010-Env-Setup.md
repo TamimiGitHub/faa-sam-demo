@@ -8,7 +8,7 @@
    - [Optional: Adding prompts to SAM](#optional-adding-prompts)
    - [Next Steps](#next-steps)
 
-## Access the VSCode URL
+## 1. Access the VSCode instance
 1. Navigate to the AWS Console
 
    ![AWS Console](img/access_console.png)
@@ -30,7 +30,7 @@
    ![VSCode](img/vscode_env.png)
 
 
-## Installing Solace Agent Mesh
+## 2. Installing Solace Agent Mesh
 
 1. Navigate to the sam directory and create a virtual environment
    ```
@@ -68,7 +68,7 @@ After initializing sam, you should now see a
    5 directories, 6 files
    ```
 
-## Configuring Solace Agent Mesh
+## 3. Configuring Solace Agent Mesh
 
 1. Modify the .env to look like this
    ```
@@ -130,7 +130,11 @@ After initializing sam, you should now see a
 
 1. Navigate to the sam web UI. Note you can get the URL from the cloudformation output
 
-## [Optional] Adding prompts to SAM
+## Adding prompts to SAM
+To pre-populate your instance of solace agent mesh with prompts, run this script 
+```
+python populatePrompts.py -url <sam_endpoint> -config <path_prompts>
+```
 
 ## Next Steps
-Now you can follow the workshop parts in order, starting with [Part 1: Standard Operating Procedures](100-SOPs.md)
+Now you can follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)

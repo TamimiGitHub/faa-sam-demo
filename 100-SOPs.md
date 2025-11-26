@@ -182,4 +182,4 @@ This approach is significantly more efficient than reading hundreds of pages of 
 
 In the next part, we'll explore setting up the data layer for our workshop environment. We'll dive into the DocumentDB instance that serves as the foundation for our real-time flight data analysis.
 
-[Continue to Part 2: Setting Up the Data Layer](200-Data-Layer.md)
+[Continue to Setting Up the Data Layer](200-Data-Layer.md)

@@ -23,16 +23,16 @@
 
 Hi there! Welcome to our AWS Re:Invent 2025 workshop 👋 In this hands-on workshop, you will explore how to use Solace Agent Mesh and AWS resources to analyze real-time FAA (Federal Aviation Administration) flight data streams. This workshop demonstrates how to transform complex aviation data into actionable insights using AI-powered agents and natural language queries.
 
-### 🎯 The Mission
+### The Mission
 Imagine you're part of an elite team of FAA engineers tasked with revolutionizing how aviation professionals interact with flight data. Your mission? To harness the power of AI and transform the way flight planners, operators, and controllers access critical information.
 
-### 🤔 The Challenge
+### The Challenge
 Every day, aviation professionals face a common hurdle: while they're experts in their domain, navigating the FAA's vast ocean of data sources can be overwhelming. They know what they need, but finding it in the complex web of aviation data? That's where things get turbulent.
 
-### 🌟 Your Task: "Chat with your Data"
+### Your Task: "Chat with your Data"
 You'll build an intelligent system that lets aviation professionals simply ask questions in plain English and get instant, accurate answers from real-time flight data. No more digging through complex databases or decoding technical data structures!
 
-### 🌐 The Technical Landscape
+### The Technical Landscape
 - The FAA's real-time flight information flows through a sophisticated publish/subscribe messaging system, powered by the Solace Event Mesh
 - This system lets users tap into exactly the data streams they need, creating an efficient, dynamic flow of information
 - To make this data AI-ready, we're capturing a 10-minute historical window in DocumentDB (Don't worry, we've already set this up in your workshop environment!)

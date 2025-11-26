@@ -424,7 +424,7 @@ Resources:
     Properties:
       ApplicationName: !Ref ElasticBeanstalkApplication
       EnvironmentName: FDPS-Environment
-      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      SolutionStackName: "64bit Amazon Linux 2023 v4.8.0 running Corretto 17"
       VersionLabel: !Ref FDPSElasticBeanstalkApplicationVersion
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
@@ -467,7 +467,7 @@ Resources:
     Properties:
       ApplicationName: !Ref STDDSElasticBeanstalkApplication
       EnvironmentName: STDDS-Environment
-      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      SolutionStackName: "64bit Amazon Linux 2023 v4.8.0 running Corretto 17"
       VersionLabel: !Ref STDDSElasticBeanstalkApplicationVersion
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
@@ -510,7 +510,7 @@ Resources:
     Properties:
       ApplicationName: !Ref ElasticBeanstalkApplication
       EnvironmentName: FlightPlan-Environment
-      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      SolutionStackName: "64bit Amazon Linux 2023 v4.8.0 running Corretto 17"
       VersionLabel: !Ref FlightPlanElasticBeanstalkApplicationVersion
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment

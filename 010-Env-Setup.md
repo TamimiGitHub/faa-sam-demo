@@ -101,6 +101,9 @@ After initializing sam, you should now see a
 
 1. Update the necessary variables as follows:
    - `SOLACE_BROKER_URL` - Get the url from the cloud formation output
+      
+      ![URL](img/url_broker_copy.png)
+
    - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN` 
 
       ![Cress Get](img/aws_account_access_creds.png)

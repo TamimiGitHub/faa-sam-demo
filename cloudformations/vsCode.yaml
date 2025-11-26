@@ -1705,6 +1705,9 @@ Resources:
   #    TransactionSearchEnabled: true 
 
 Outputs:
-  URL:
+  VSCodeURL:
     Description: Code Editor URL
     Value: !Sub https://${CloudFrontDistribution.DomainName}/?folder=${HomeFolder}&tkn=${SecretPlaintext.password}
+  SAMWebUI:
+    Description: Public DNS name of the EC2 instance
+    Value: !GetAtt CodeEditorInstance.PublicDnsName

@@ -134,7 +134,7 @@ After initializing sam, you should now see a
 ## Adding prompts to SAM
 To pre-populate your instance of solace agent mesh with prompts, run this script 
 ```
-python3 populate_prompts.py --file util/faa_prompts.json
+python3 util/populate_prompts.py --file util/faa_prompts.json
 ```
 
 ## Next Steps

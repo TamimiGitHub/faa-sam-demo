@@ -154,10 +154,16 @@ After initializing sam, you should now see a
 1. Navigate to the sam web UI. Note you can get the URL from the cloudformation output
 
 ## Adding prompts to SAM
-To pre-populate your instance of solace agent mesh with prompts, run this script 
-```
-python3 util/populate_prompts.py --file util/faa_prompts.json
-```
+Now lets pre-populate the solace agent mesh instance with prompts:
+
+1. open a new terminal
+
+   ![new terminal](./img/new-terminal.png)
+
+1. Run the following script
+   ```
+   python3 util/populate_prompts.py --file util/faa_prompts.json
+   ```
 
 ## Next Steps
 Now you can follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)

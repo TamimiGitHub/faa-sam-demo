@@ -86,7 +86,6 @@ After initializing sam, you should now see a
    SSL_CERTFILE=""
    SSL_KEYFILE_PASSWORD=""
    ENABLE_EMBED_RESOLUTION="True"
-   LOGGING_CONFIG_PATH="configs/logging_config.ini"
    S3_BUCKET_NAME=""
    S3_ENDPOINT_URL=""
    S3_REGION="us-west-2"
@@ -136,7 +135,7 @@ After initializing sam, you should now see a
 ## Adding prompts to SAM
 To pre-populate your instance of solace agent mesh with prompts, run this script 
 ```
-python populatePrompts.py -url <sam_endpoint> -config <path_prompts>
+python3 populate_prompts.py --file util/faa_prompts.json
 ```
 
 ## Next Steps

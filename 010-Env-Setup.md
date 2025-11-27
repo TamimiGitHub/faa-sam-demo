@@ -1,12 +1,11 @@
 # Environment Setup
 
 ## Table of Contents
-- [Environment Setup](#environment-setup)
-   - [Access the VSCode URL](#access-the-vscode-url)
-   - [Installing Solace Agent Mesh](#installing-solace-agent-mesh)
-   - [Configuring Solace Agent Mesh](#configuring-solace-agent-mesh)
-   - [Optional: Adding prompts to SAM](#optional-adding-prompts)
-   - [Next Steps](#next-steps)
+- [Access the VSCode URL](#access-the-vscode-url)
+- [Installing Solace Agent Mesh](#installing-solace-agent-mesh)
+- [Configuring Solace Agent Mesh](#configuring-solace-agent-mesh)
+- [Populating prompts to SAM](#optional-adding-prompts)
+- [Next Steps](#next-steps)
 
 ## 1. Access the VSCode instance
 1. Navigate to the AWS Console

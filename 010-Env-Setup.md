@@ -127,6 +127,28 @@ After initializing sam, you should now see a
 
 1. Save the `.env` file
 
+1. Now update the model in the shared configuration file to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following:
+
+   ```
+   planning: &planning_model
+      model: ${BEDROCK_MODEL_NAME}
+      model_id: ${BEDROCK_MODEL_ID}
+      aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+      aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      temperature: 0.1  # Lower temperature for more focused responses
+      # max_tokens: 2048  # Limit response length
+
+    general: &general_model
+      model: ${BEDROCK_MODEL_NAME}
+      model_id: ${BEDROCK_MODEL_ID}
+      aws_access_key_id: ${AWS_ACCESS_KEY_ID}
+      aws_secret_access_key: ${AWS_SECRET_ACCESS_KEY}
+      aws_session_token: ${AWS_SESSION_TOKEN}
+      temperature: 0.1  # Lower temperature for more focused responses
+      # max_tokens: 1536  # Limit response length for general queries
+   ```
+
 1. From terminal, run sam `sam run`
 
 1. Navigate to the sam web UI. Note you can get the URL from the cloudformation output

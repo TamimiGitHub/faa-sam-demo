@@ -110,6 +110,10 @@ After initializing sam, you should now see a
 
    - `BEDROCK_MODEL_ID`
 
+      1. Navigate to the AWS Console
+
+      ![AWS Console](img/access_console.png)
+
       1. Navigate to the Bedrock Service
       ![Bedreock Service](img/bedrock_service.png)
 

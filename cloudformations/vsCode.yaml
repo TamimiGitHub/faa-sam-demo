@@ -688,7 +688,7 @@ Resources:
                       },
                       {
                         "command": "vscode.open",
-                        "args": "${HomeFolder}/README.md"
+                        "args": "file://${HomeFolder}/README.md"
                       }
                     ],
                     "workbench.editorAssociations": {

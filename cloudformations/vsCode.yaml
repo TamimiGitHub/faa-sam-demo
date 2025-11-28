@@ -685,6 +685,10 @@ Resources:
                     "auto-run-command.rules": [
                       {
                         "command": "workbench.action.terminal.new"
+                      },
+                      {
+                        "command": "vscode.open",
+                        "args": "${HomeFolder}/README.md"
                       }
                     ],
                     "workbench.editorAssociations": {
@@ -1368,44 +1372,44 @@ Resources:
     Properties:
       GroupDescription: Security Group for Code Editor - allow port 8000
       SecurityGroupIngress:
-        - Description: Allow port 8000 from com.amazonaws.global.cloudfront.origin-facing
+        - Description: Allow port 8000 from anywhere
           IpProtocol: tcp
           FromPort: 8000
           ToPort: 8000
-          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+          CidrIp: 0.0.0.0/0
 
   SecurityGroup8080:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Security Group for Code Editor - allow port 8080
       SecurityGroupIngress:
-        - Description: Allow port 8080 from com.amazonaws.global.cloudfront.origin-facing
+        - Description: Allow port 8080 from anywhere
           IpProtocol: tcp
           FromPort: 8080
           ToPort: 8080
-          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+          CidrIp: 0.0.0.0/0
 
   SecurityGroup5002:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Security Group for Code Editor - allow port 5002
       SecurityGroupIngress:
-        - Description: Allow port 5002 from com.amazonaws.global.cloudfront.origin-facing
+        - Description: Allow port 5002 from anywhere
           IpProtocol: tcp
           FromPort: 5002
           ToPort: 5002
-          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+          CidrIp: 0.0.0.0/0
 
   SecurityGroup8008:
     Type: AWS::EC2::SecurityGroup
     Properties:
       GroupDescription: Security Group for Code Editor - allow port 8008
       SecurityGroupIngress:
-        - Description: Allow port 8008 from com.amazonaws.global.cloudfront.origin-facing
+        - Description: Allow port 8008 from anywhere
           IpProtocol: tcp
           FromPort: 8008
           ToPort: 8008
-          SourcePrefixListId: !FindInMap [AWSRegionsPrefixListID, !Ref 'AWS::Region', PrefixList]
+          CidrIp: 0.0.0.0/0
 
   CodeEditorHealthCheckLambdaRole:
     Type: AWS::IAM::Role
@@ -1710,4 +1714,4 @@ Outputs:
     Value: !Sub https://${CloudFrontDistribution.DomainName}/?folder=${HomeFolder}&tkn=${SecretPlaintext.password}
   SAMWebUI:
     Description: Public DNS name of the EC2 instance
-    Value: !GetAtt CodeEditorInstance.PublicDnsName
+    Value: !Sub http://${CodeEditorInstance.PublicDnsName}:8000

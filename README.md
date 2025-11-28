@@ -9,8 +9,8 @@
    - [The Technical Landscape](#the-technical-landscape)
    - [Topic Structure](#topic-structure)
 2. [Prerequisites](#prerequisites)
-3. [Prepare AWS Environment](#prepare-aws-environment)
-4. [Workshop Structure](#workshop-structure)
+3. [Environment Setup](#prepare-aws-environment)
+4. [Workshop Structure](#workshop structure)
 5. [Getting Started](#getting-started)
 6. [Support](#support)
 7. [Additional Resources](#additional-resources)
@@ -68,7 +68,7 @@ Ready for takeoff? Let's transform how aviation professionals interact with thei
 - AWS account. If you are attending this event in person, the necessary plumbing is already configured for you
 - Your curiosity!
 
-## Prepare AWS Environment
+## Environment Setup
 To setup your AWS Environment, please follow the steps in the [Environment Setup](010-Env-Setup.md) document
 
 ## Workshop Structure

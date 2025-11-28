@@ -116,7 +116,11 @@ This workshop requires several AWS resources that are provisioned through CloudF
 
 ### Running it on your own
 
-1. Clone this repository:
+1. Clone this repository
 
-2. Deploy the AWS resources:
-Upload and deploy the cloud formations using the AWS Console UI
+1. Deploy the AWS resources:
+
+   - Upload and deploy the cloud formations using the AWS Console UI
+      1. faa-infrastructure.yaml
+      1. vsCode.yaml
+   - Follow the steps in the [Environment Setup](010-Env-Setup.md) document 

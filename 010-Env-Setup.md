@@ -281,8 +281,6 @@ Make sure the yaml indentation is proper. Your shared_config.yaml file should lo
    >
    >   ![Workflow](./img/agernt_workflow.png)
       
-
-
 ## Adding prompts to SAM
 Now lets pre-populate the solace agent mesh instance with prompts:
 

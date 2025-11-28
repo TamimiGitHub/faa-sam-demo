@@ -9,12 +9,11 @@
    - [The Technical Landscape](#the-technical-landscape)
    - [Topic Structure](#topic-structure)
 2. [Prerequisites](#prerequisites)
-3. [Environment Setup](#prepare-aws-environment)
-4. [Workshop Structure](#workshop structure)
-5. [Getting Started](#getting-started)
-6. [Support](#support)
-7. [Additional Resources](#additional-resources)
-8. [Note on AWS Environment Setup](#note-on-aws-environment-setup)
+3. [Environment Setup](#environment-setup)
+4. [Workshop Structure](#workshop-structure)
+5. [Support](#support)
+6. [Additional Resources](#additional-resources)
+7. [Note on AWS Environment Setup](#note-on-aws-environment-setup)
    - [Running it on your own](#running-it-on-your-own)
 
 ## Workshop: Agentic AI with Realtime FAA Data
@@ -69,7 +68,7 @@ Ready for takeoff? Let's transform how aviation professionals interact with thei
 - Your curiosity!
 
 ## Environment Setup
-To setup your AWS Environment, please follow the steps in the [Environment Setup](010-Env-Setup.md) document
+To setup your AWS Environment, please follow the steps in the [Environment Setup](010-Env-Setup.md) document. And then follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)
 
 ## Workshop Structure
 
@@ -81,10 +80,6 @@ This workshop is divided into the following  parts:
 1. [Natural Language Queries](400-Natural-Language.md) - Querying data using natural language
 1. [Flight Plan Intelligence](500-Flight-Plan.md) - Adding flight plan analysis
 1. [Event-Based AI](600-Event-Based.md) - Implementing event-triggered reporting
-
-## Getting Started
-
-Follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)
 
 ## Support
 

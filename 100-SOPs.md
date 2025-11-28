@@ -99,7 +99,19 @@ sam plugin add faa-docs-agent --plugin sam-rag
          - "What is the structure of the FDPSPosition collection in a JSON Schema format"
          - "Find documents related to machine learning algorithms."
    ```
+1. Configure the agent to use AWS Bedrock Embedding Model
 
+   ```
+   embedding:
+      embedder_type: "litellm"
+      embedder_params:
+         model: "${BEDROCK_EMBEDDING_MODEL_NAME}"
+         batch_size: 32
+         additional_kwargs:
+            aws_access_key_id: "${AWS_ACCESS_KEY_ID}"
+            aws_secret_access_key: "${AWS_SECRET_ACCESS_KEY}"
+      normalize_embeddings: true
+   ```
 ### Step 3: Set Up Environment Variables
 
 Update your `.env` file with the necessary variables. Your workshop instructor will provide the specific values for your environment.
@@ -110,8 +122,9 @@ QDRANT_URL="<qdrant_url>:6333"
 QDRANT_API_KEY="<API_KEY>"
 QDRANT_COLLECTION="SOP"
 QDRANT_EMBEDDING_DIMENSION=1536
-OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
 DOCUMENTS_PATH="faa_documents"
+## AWS Bedrock Configuration
+BEDROCK_EMBEDDING_MODEL_NAME="bedrock/amazon.titan-embed-text-v2:0"
 ```
 
 ### Step 4: Create Document Directory

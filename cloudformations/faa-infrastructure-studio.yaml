@@ -656,7 +656,7 @@ Outputs:
     
   SolaceBrokerEndpoint:
     Description: Solace broker EC2 instance endpoint URL
-    Value: !GetAtt SolaceInstance.PublicDnsName
+    Value: !Sub http://${SolaceInstance.PublicDnsName}:8080
     
   FAABrokerHOST:
     Description: FAA Broker Host

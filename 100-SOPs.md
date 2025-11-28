@@ -373,23 +373,57 @@ sam run configs/agents/faa-docs-agent.yaml
 ### Step 6: Verify Agent Setup
 
 1. Check the terminal output for any errors.
+
 1. Verify that the agent has successfully connected to:
    - The Solace broker
    - The vector database
+
 1. If you see any connection errors, double-check your environment variables and configuration.
+
+1. Navigate to the Solace Agent Mesh WebUI
+
+  ![Agent Tab](img/agents_tab.png)
+
+1. Click on _Refresh Agents_ tab
+
+  ![Agent Tab](img/refresh_agents.png)
+
+1. See the the newly added SOPs agent
+  ![SOP Agent](img/sop_agent.png)
 
 ## Exercise: Analyzing System Documentation
 
 ### Step 1: Upload CONOPS Documents
 
-1. Navigate to the Agent Mesh WebUI.
-1. Upload the FDPS CONOPS document to Agent Mesh.
-1. Upload the STDDS CONOPS document to Agent Mesh.
-1. Use the following prompt:
+The RAG agent has two main functionalities
 
-   ```
-   Upload the following documents to my vector database
-   ```
+1. Ingesting documents: This is done in one of two ways:
+  
+  1. Directory Upload: Add files in the configured the directory path in the <agent_name>.yaml file and the agent ingests documents in background automatically.
+
+  1. Solace Agent Mesh UI on the browser (by default http://localhost:8000), attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
+
+1. Retrieving documents
+
+  Sending prompts using a Solace Agent Mesh Gateway (e.g. WebUI) "search documents about and return a summary and referenced documents". It retrieves top similar documents and returns a summary of documents align with their original documents.
+
+Now lets go ahead an upload our FAA standard operating procedures through a directory upload
+
+1. Open a new terminal session
+
+  ![New Terminal](img/new-terminal.png)
+
+1. Execute this command
+
+  ```
+  cp -r solution/sop/* sam/faa_documents/
+  ```
+
+  > This command copies all the FAA SOP documents into the configured RAG directory
+
+1. [Optional] Navigate to the terminal session where the RAG agent is running and observe the embedding
+
+  ![New Terminal](img/terminal_sessions.png)
 
 ### Step 2: Query the RAG Agent
 

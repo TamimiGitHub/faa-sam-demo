@@ -121,15 +121,16 @@ apps:
                   chunk_size: 2048 # chunk size in number of rows
                   include_header: false
                 # Add Xml, Odt, Xlsx, and other formats as needed
-            # Embedding configuration
+          # Embedding configuration
 
           embedding:
-            embedder_type: "openai"
+            embedder_type: "litellm"
             embedder_params:
-              model: "${OPENAI_EMBEDDING_MODEL}"
-              api_key: "${OPENAI_API_KEY}"
-              api_base: "${OPENAI_API_ENDPOINT}"
+              model: "${BEDROCK_EMBEDDING_MODEL_NAME}"
               batch_size: 32
+              additional_kwargs:
+                aws_access_key_id: "${AWS_ACCESS_KEY_ID}"
+                aws_secret_access_key: "${AWS_SECRET_ACCESS_KEY}"
             normalize_embeddings: true
 
           vector_db:

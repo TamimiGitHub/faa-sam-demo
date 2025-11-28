@@ -268,8 +268,16 @@ Make sure the yaml indentation is proper. Your shared_config.yaml file should lo
 
 1. Test out your LLM configuration with the following prompt
    ```
-   What's the weather in Las Vegas today?
+   What model are you using?
    ```
+
+   ![SAM Web UI](./img/init_prompt.png)
+
+   > Note: You can view the prompt workflow by clicking this icon
+   >
+   >   ![Workflow](./img/agernt_workflow.png)
+      
+
 
 ## Adding prompts to SAM
 Now lets pre-populate the solace agent mesh instance with prompts:

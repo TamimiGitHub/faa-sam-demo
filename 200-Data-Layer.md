@@ -54,7 +54,7 @@ _These micro-integrations are already running in your environment, continuously 
 4. **Database Write**: Processed data is written to DocumentDB collections
 5. **Data Expiration**: Old data is automatically removed to maintain the historical window
 
-This architecture ensures that your DocumentDB instance always contains the most recent 10 minutes of flight data, providing a real-time view of the National Airspace System.
+This architecture ensures that your DocumentDB instance always contains the most recent 8 hours of flight data, providing a real-time view of the National Airspace System.
 
 ## Next Steps
 

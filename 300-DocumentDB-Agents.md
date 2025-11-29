@@ -127,19 +127,6 @@ Now that you understand the data layer, it's time to build agent that will conne
           auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
           max_inline_results: ${MAX_INLINE_RESULTS, 10}
       ```
-   1. Update your `.env` to add the following env vars
-      ```
-      SAM_DOCUMENTDB_MONGO_HOST="<documentDB_host>" # e.g. faa-data.cluster-cmllhe9ilflq.us-west-2.docdb.amazonaws.com
-      SAM_DOCUMENTDB_MONGO_PORT="27017"
-      SAM_DOCUMENTDB_MONGO_USER="faa"
-      SAM_DOCUMENTDB_MONGO_PASSWORD="faaistheb3st"
-      SAM_DOCUMENTDB_MONGO_DB="FAAData"
-
-      ## FDPS Position Collection
-      FLIGHT_DB_MONGO_COLLECTION="FDPSPosition"
-      FLIGHT_DB_DB_PURPOSE="this database includes information about enroute flights including location, speed, and altitude"
-      FLIGHT_DB_DB_DESCRIPTION="data includes which artcc center the aircraft is in, the departure and arrival information along with its current enroute position (latitude, longitude), actual speed (KNOTS), altitude along with the flight number (AircractIdentification) and flight plan id."
-      ```
    1. Update the agent card description
       ```
        description: "You are an intelligent Flight Data Analysis Agent with direct access to a database containing real-time flight telemetry   and control system data.
@@ -309,6 +296,19 @@ Now that you understand the data layer, it's time to build agent that will conne
                allow_list: []
                request_timeout_seconds: 30
          ```
+1. Update your `.env` to add the following env vars
+      ```
+      SAM_DOCUMENTDB_MONGO_HOST="<documentDB_host>" # e.g. faa-data.cluster-cmllhe9ilflq.us-west-2.docdb.amazonaws.com
+      SAM_DOCUMENTDB_MONGO_PORT="27017"
+      SAM_DOCUMENTDB_MONGO_USER="faa"
+      SAM_DOCUMENTDB_MONGO_PASSWORD="faaistheb3st"
+      SAM_DOCUMENTDB_MONGO_DB="FAAData"
+
+      ## FDPS Position Collection
+      FLIGHT_DB_MONGO_COLLECTION="FDPSPosition"
+      FLIGHT_DB_DB_PURPOSE="this database includes information about enroute flights including location, speed, and altitude"
+      FLIGHT_DB_DB_DESCRIPTION="data includes which artcc center the aircraft is in, the departure and arrival information along with its current enroute position (latitude, longitude), actual speed (KNOTS), altitude along with the flight number (AircractIdentification) and flight plan id."
+      ```
 1. Save the fle and run it
    ``` 
    sam run configs/agents/flight-db.yaml

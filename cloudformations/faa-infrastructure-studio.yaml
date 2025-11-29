@@ -673,3 +673,11 @@ Outputs:
   FAABrokerMSGVPN:
     Description: FAA Broker Message VPN
     Value: scds
+  
+  VectorDBEndpoint:
+    Description: Vector Database Endpoint
+    Value: 707d10ce-aa99-4a49-afda-027e4426dcb6.us-west-2-0.aws.cloud.qdrant.io
+  
+  VectorDBKey:
+    Description: Vector Database Key
+    Value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.CslcSo34sSR_ToCUgGkN9QgOGGSQPDuXauHnDz9QTYU

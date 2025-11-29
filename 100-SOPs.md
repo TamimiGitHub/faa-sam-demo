@@ -349,6 +349,8 @@ DOCUMENTS_PATH="faa_documents"
 BEDROCK_EMBEDDING_MODEL_NAME="bedrock/amazon.titan-embed-text-v2:0"
 ```
 
+Please refer to the cloudformation output for vectorDB endpoint and API key
+
 ### Step 4: Create Document Directory
 
 1. Create a directory for your FAA documentation:

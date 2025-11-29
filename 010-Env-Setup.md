@@ -94,7 +94,7 @@ After initializing sam, you should now see a
    AWS_SECRET_ACCESS_KEY="<insert_here>"
    AWS_SESSION_TOKEN="<insert_here>"
    BEDROCK_MODEL_NAME="bedrock/anthropic.claude-sonnet-4-20250514-v1:0"
-   BEDROCK_MODEL_ID="<model_arn>"
+   BEDROCK_MODEL_ID="<model_arn>" # e.g. arn:aws:bedrock:us-west-2:{AWS_ACCOUNT_ID}:inference-profile/global.anthropic.claude-sonnet-4-20250514-v1:0 
    ```
 
 1. Update the necessary variables as follows:

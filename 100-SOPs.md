@@ -433,11 +433,25 @@ Use the RAG agent to analyze the uploaded documentation by running the following
 Tell me about the FDPS and STDDS systems and data.
 ```
 
-Wait for the response, review the summary, then proceed with the next prompt:
+Wait for the response and review the summary.
 
-```
-Tell me what types of outcomes I could expect by analyzing data from these systems.
-```
+Using the prepopulated prompts, follow the next steps
+
+1. From the chat interface, type `/` to insert a prompt
+
+  ![prompt insert](img/prompt_insert.png)
+
+1. Type in `sop-`
+
+  ![prompt insert](img/sop_prompt.png)
+
+1. Click on the `sops-analyses` prompt and hit enter
+
+  ![prompt insert](img/sop_analyze.png)
+
+1. Execute the prompt
+
+  ![prompt insert](img/prompt_analyses.png)
 
 The RAG agent will provide:
 - High-level overviews of each system's purpose and functionality

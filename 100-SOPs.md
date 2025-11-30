@@ -53,7 +53,7 @@ In this exercise, you'll set up a Retrieval Augmented Generation (RAG) agent tha
 sam plugin add faa-docs-agent --plugin sam-rag
 ```
 
-1. This will create a new agent configuration file at `configs/agents/faa-docs-agent.yaml`
+1. This will create a new agent configuration file at [configs/agents/faa-docs-agent.yaml](./sam/configs/agents/faa-docs-agent.yaml)
 
 ### Step 2: Configure the RAG Agent
 

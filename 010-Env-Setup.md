@@ -44,7 +44,6 @@
    ```
    pip install -r requirements.txt
    ```
-   > [!IMPORTANT]
    > Make sure you have activated your virtual environment before proceeding with the workshop. Run `source .venv/bin/activate` if you haven't already done so. Anytime you open a new terminal, you will have to navigate to the `sam` dir and activate the python virtual environment
 
 1. Initialize the solace agent mesh
@@ -131,7 +130,7 @@ After initializing sam, you should now see a
 
 1. Save the `.env` file
 
-1. Now update the model in the shared configuration file to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following:
+1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following:
 
    ```
    planning: &planning_model

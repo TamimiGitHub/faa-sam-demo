@@ -76,6 +76,7 @@ To setup your AWS Environment, please follow the steps in the [Environment Setup
 
 This workshop is divided into the following  parts:
 
+1. [Environment Setup](010-Env-Setup.md) - Prerequisite from installation and configuration
 1. [Standard Operating Procedures](100-SOPs.md) - Understanding FDPS, STDDS, and RAG
 1. [Data Layer](200-Data-Layer.md) - Setting up the data infrastructure
 1. [DocumentDB Agents](300-DocumentDB-Agents.md) - Creating database agents
@@ -96,7 +97,7 @@ If you need assistance during the workshop:
 - [Event-Driven Architecture Patterns](https://solace.com/)
 - [AWS Agent Core](https://aws.amazon.com/bedrock/agentcore/)
 
-## Note on AWS Environment Setup. [Skip if running in an AWS event]
+## [Skip if running in an AWS event] Note on AWS Environment Setup. 
 
 This workshop requires several AWS resources that are provisioned through CloudFormation templates found in the `cloudformations` directory. The template sets up:
 

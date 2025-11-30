@@ -29,6 +29,8 @@
 
    ![VSCode](img/vscode_env.png)
 
+> Note: At any point during the workshop, if you kill your terminal window and want to bring it up again click `CMD+SHIT+P` to bring up the command pallet and type in `toggle terminal`
+
 ## 2. Installing helper extension in VsCode
 
 To enhance the workshop experience, we recommend installing the Paste and Indent by Rubymaniac. To do so: 
@@ -158,7 +160,7 @@ After initializing sam, you should now see a
 
 1. Save the `.env` file
 
-1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following:
+1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content. If you [installed the helper extension in VsCode](#2-installing-helper-extension-in-vscode), you can simply copy the content below and paste it in the right location via `CMD+SHIFT+V`
 
    ```
    planning: &planning_model
@@ -179,7 +181,7 @@ After initializing sam, you should now see a
       temperature: 0.1  # Lower temperature for more focused responses
       # max_tokens: 1536  # Limit response length for general queries
    ```
-Make sure the yaml indentation is proper. Your shared_config.yaml file should look like this
+Your shared_config.yaml file should look like this
    ```
    shared_config:
   - broker_connection: &broker_connection

@@ -1,10 +1,11 @@
 # Environment Setup
 
 ## Table of Contents
-- [1. Access the VSCode instance](#1-access-the-vscode-instance)
-- [2. Installing Solace Agent Mesh](#2-installing-solace-agent-mesh)
-- [3. Configuring Solace Agent Mesh](#3-configuring-solace-agent-mesh)
-- [5. Adding prompts to SAM](#adding-prompts-to-sam)
+- [1. Access the VSCode instance](#1-skip-if-in-aws-event-access-the-vscode-instance)
+- [2. Installing helper extension in VsCode](#2-installing-helper-extension-in-vscode)
+- [3. Installing Solace Agent Mesh](#3-installing-solace-agent-mesh)
+- [4. Configuring Solace Agent Mesh](#4-configuring-solace-agent-mesh)
+- [5. Adding prompts to SAM](#5-adding-prompts-to-sam)
 - [Next Steps](#next-steps)
 
 ## 1. [Skip if in AWS Event] Access the VSCode instance

@@ -4,7 +4,7 @@
 - [1. Access the VSCode instance](#1-access-the-vscode-instance)
 - [2. Installing Solace Agent Mesh](#2-installing-solace-agent-mesh)
 - [3. Configuring Solace Agent Mesh](#3-configuring-solace-agent-mesh)
-- [Adding prompts to SAM](#adding-prompts-to-sam)
+- [5. Adding prompts to SAM](#adding-prompts-to-sam)
 - [Next Steps](#next-steps)
 
 ## 1. [Skip if in AWS Event] Access the VSCode instance
@@ -28,8 +28,33 @@
 
    ![VSCode](img/vscode_env.png)
 
+## 2. Installing helper extension in VsCode
 
-## 2. Installing Solace Agent Mesh
+To enhance the workshop experience, we recommend installing the Paste and Indent by Rubymaniac. To do so: 
+
+1. Navigate to the extensions tab in your Vscode editor
+
+   ![vscode extension](./img/vscode_extension.png)
+
+1. Type `Paste and Indent Rubymaniac` in the search dialog and install the extension
+
+   ![vscode extension install](./img/vscode_exntesion_install.png)
+
+1. Bring up the extensions pallet by typing `CMD+SHIFT+P` and type `paste-indent and click the cog icon next to the extension name
+
+   ![vscode extension install](./img/vscode_paste_indent.png)
+
+1. Update the keybinding for the extension to override the regular paste shortcut
+
+   ![vscode extension install](./img/vscode_keybinding.png)
+
+1. When the key binding dialog comes up, press the paste shortcut on your keyboard `CMD+V`
+
+1. You should now see the new keybinding
+
+   ![vscode extension install](./img/vscode_keybinding2.png)
+
+## 3. Installing Solace Agent Mesh
 
 1. Navigate to the sam directory and create a virtual environment
    ```
@@ -66,7 +91,7 @@ After initializing sam, you should now see a
    5 directories, 6 files
    ```
 
-## 3. Configuring Solace Agent Mesh
+## 4. Configuring Solace Agent Mesh
 
 1. Replace everything in the `.env` with the following content
    ```
@@ -280,7 +305,7 @@ Make sure the yaml indentation is proper. Your shared_config.yaml file should lo
    >
    >   ![Workflow](./img/agernt_workflow.png)
       
-## Adding prompts to SAM
+## 5. Adding prompts to SAM
 Now lets pre-populate the solace agent mesh instance with prompts:
 
 1. open a new terminal

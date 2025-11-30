@@ -305,7 +305,7 @@ Flight plans contain:
    sam run configs/agents/flightPlan.yaml
    ```
 
-1. Navigate back to the SAM WebUI instance and observe the new agent
+1. Navigate back to the SAM WebUI instance and observe the new agent.
 
 ## Step 3: Analyze Flight Plan Adherence
 

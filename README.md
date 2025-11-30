@@ -8,6 +8,8 @@
    - [Your Task: "Chat with your Data"](#your-task-chat-with-your-data)
    - [The Technical Landscape](#the-technical-landscape)
    - [Topic Structure](#topic-structure)
+   - [Architecture Diagram](#architecture-diagram)
+   - [Resources](#resources)
 2. [Prerequisites](#prerequisites)
 3. [Environment Setup](#environment-setup)
 4. [Workshop Structure](#workshop-structure)
@@ -15,8 +17,6 @@
 6. [Additional Resources](#additional-resources)
 7. [Note on AWS Environment Setup](#note-on-aws-environment-setup)
    - [Running it on your own](#running-it-on-your-own)
-
-## Workshop: Agentic AI with Realtime FAA Data
 
 ## Overview
 
@@ -46,14 +46,16 @@ And
 ```
 STDDS/position/{AIRPORT_CODE}/{FLIGHT_ID}
 ```
-
+### Architecture Diagram
 By the end of this workshop, you will have built a multi-agent system that can:
 - Interact with real-time flight data from multiple FAA systems
 - Analyze flight plan adherence
 - Generate automated landing reports
 - Provide operational insights to flight planners, operators, and controllers
 
-You will use:
+![Arch Diagram](./img/arch_diagram.jpg)
+
+### Resources
 - AWS resources: EC2 Instances, DocumentDB, Bedrock LLM, AgentCore
 - Agentic Frameworks: MCP, A2A, Strands, Solace Agent Mesh
 - Solace Platform: Event Broker

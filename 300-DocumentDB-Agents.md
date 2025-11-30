@@ -336,111 +336,111 @@ Now that you understand the data layer, it's time to build agent that will conne
       log_file_level: INFO
       log_file: stdds-documentdb.log
 
-      # To use the `shared_config.yaml` file, uncomment the following line and remove the `shared_config` section below.
-      !include ../shared_config.yaml
+   # To use the `shared_config.yaml` file, uncomment the following line and remove the `shared_config` section below.
+   !include ../shared_config.yaml
 
-      apps:
-      - name: stdds-documentdb-app
-         app_module: solace_agent_mesh.agent.sac.app
-         broker:
-            <<: *broker_connection
-         app_config:
-            namespace: "${NAMESPACE}"
-            agent_name: "stddsDocumentdb"
-            display_name: "Surface Movements (STDDS) Agent"
-            supports_streaming: true
+   apps:
+   - name: stdds-documentdb-app
+      app_module: solace_agent_mesh.agent.sac.app
+      broker:
+         <<: *broker_connection
+      app_config:
+         namespace: "${NAMESPACE}"
+         agent_name: "stddsDocumentdb"
+         display_name: "Surface Movements (STDDS) Agent"
+         supports_streaming: true
 
-            model: *general_model
-            instruction: |
-            You are the STDDS DocumentDB agent, an expert MongoDB assistant specialized in Surface Traffic Data Display System (STDDS) data analysis. Your primary goal is to translate user questions about aircraft surface operations into accurate and efficient MongoDB aggregation pipelines for a database containing real-time airport surface movement data.
+         model: *general_model
+         instruction: |
+         You are the STDDS DocumentDB agent, an expert MongoDB assistant specialized in Surface Traffic Data Display System (STDDS) data analysis. Your primary goal is to translate user questions about aircraft surface operations into accurate and efficient MongoDB aggregation pipelines for a database containing real-time airport surface movement data.
 
-            Response Guidelines:
-            - Provide direct, concise answers to surface operations queries
-            - Present data in structured formats (tables for multiple results)
-            - Only explain pipeline logic when specifically requested
-            - Focus on answering the specific question asked
-            - For airport activity queries, summarize key patterns and metrics
+         Response Guidelines:
+         - Provide direct, concise answers to surface operations queries
+         - Present data in structured formats (tables for multiple results)
+         - Only explain pipeline logic when specifically requested
+         - Focus on answering the specific question asked
+         - For airport activity queries, summarize key patterns and metrics
 
-            ====================
-            DATA STRUCTURE KNOWLEDGE
-            ====================
+         ====================
+         DATA STRUCTURE KNOWLEDGE
+         ====================
 
-            DOCUMENT STRUCTURE:
-            {
-               "_id": "ObjectId",
-               "SurfaceMovementEventMessage": { /* primary data */ },
-               "timestamp": "ISO8601",
-               "messageType": "string"
-            }
+         DOCUMENT STRUCTURE:
+         {
+            "_id": "ObjectId",
+            "SurfaceMovementEventMessage": { /* primary data */ },
+            "timestamp": "ISO8601",
+            "messageType": "string"
+         }
 
-            KEY FIELDS:
-            - SurfaceMovementEventMessage.callsign: Aircraft identifier (e.g., "AAL100")
-            - SurfaceMovementEventMessage.track: Track number
-            - SurfaceMovementEventMessage.stid: Surface track ID
-            - SurfaceMovementEventMessage.airport: ICAO airport code (e.g., "KJFK", "KDFW")
-            - SurfaceMovementEventMessage.aircraftType: ICAO aircraft type (e.g., "B77W", "A321")
-            - SurfaceMovementEventMessage.event: Event type ["spotout", "runwayin", "runwayout", "on", "off"]
-            - SurfaceMovementEventMessage.status: Current status ["onsurface", "onrunway", "airborne"]
-            - runway: Runway identifier (when applicable, e.g., "04L/22R")
-            - position: {latitude, longitude}
-            - altitude: Altitude in feet
-            - time: Event timestamp
+         KEY FIELDS:
+         - SurfaceMovementEventMessage.callsign: Aircraft identifier (e.g., "AAL100")
+         - SurfaceMovementEventMessage.track: Track number
+         - SurfaceMovementEventMessage.stid: Surface track ID
+         - SurfaceMovementEventMessage.airport: ICAO airport code (e.g., "KJFK", "KDFW")
+         - SurfaceMovementEventMessage.aircraftType: ICAO aircraft type (e.g., "B77W", "A321")
+         - SurfaceMovementEventMessage.event: Event type ["spotout", "runwayin", "runwayout", "on", "off"]
+         - SurfaceMovementEventMessage.status: Current status ["onsurface", "onrunway", "airborne"]
+         - runway: Runway identifier (when applicable, e.g., "04L/22R")
+         - position: {latitude, longitude}
+         - altitude: Altitude in feet
+         - time: Event timestamp
 
-            agent_init_function:
-            module: "sam_mongodb.lifecycle"
-            name: "initialize_mongo_agent"
-            config:
-               db_host: "${SAM_DOCUMENTDB_MONGO_HOST}"
-               db_port: ${SAM_DOCUMENTDB_MONGO_PORT}
-               db_user: "${SAM_DOCUMENTDB_MONGO_USER}"
-               db_password: "${SAM_DOCUMENTDB_MONGO_PASSWORD}"
-               db_name: "${SAM_DOCUMENTDB_MONGO_DB}"
-               database_collection: "${SAM_DOCUMENTDB_STDDS_COLLECTION}"
-               database_purpose: "${SAM_DOCUMENTDB_STDDS_DB_PURPOSE}"
-               data_description: "${SAM_DOCUMENTDB_STDDS_DB_DESCRIPTION}"
-               auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
-               max_inline_results: ${MAX_INLINE_RESULTS, 10}
+         agent_init_function:
+         module: "sam_mongodb.lifecycle"
+         name: "initialize_mongo_agent"
+         config:
+            db_host: "${SAM_DOCUMENTDB_MONGO_HOST}"
+            db_port: ${SAM_DOCUMENTDB_MONGO_PORT}
+            db_user: "${SAM_DOCUMENTDB_MONGO_USER}"
+            db_password: "${SAM_DOCUMENTDB_MONGO_PASSWORD}"
+            db_name: "${SAM_DOCUMENTDB_MONGO_DB}"
+            database_collection: "${SAM_DOCUMENTDB_STDDS_COLLECTION}"
+            database_purpose: "${SAM_DOCUMENTDB_STDDS_DB_PURPOSE}"
+            data_description: "${SAM_DOCUMENTDB_STDDS_DB_DESCRIPTION}"
+            auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
+            max_inline_results: ${MAX_INLINE_RESULTS, 10}
 
-            agent_cleanup_function:
-            module: "sam_mongodb.lifecycle"
-            name: "cleanup_mongo_agent_resources"
+         agent_cleanup_function:
+         module: "sam_mongodb.lifecycle"
+         name: "cleanup_mongo_agent_resources"
 
-            tools:
-            - tool_type: builtin-group
-               group_name: "artifact_management"
-            - tool_type: builtin-group
-               group_name: "data_analysis"
-            - tool_type: python
-               component_module: "sam_mongodb.search_query"
-               function_name: "mongo_query"
-               tool_config:
-                  collection: "${SAM_DOCUMENTDB_STDDS_COLLECTION}"
+         tools:
+         - tool_type: builtin-group
+            group_name: "artifact_management"
+         - tool_type: builtin-group
+            group_name: "data_analysis"
+         - tool_type: python
+            component_module: "sam_mongodb.search_query"
+            function_name: "mongo_query"
+            tool_config:
+               collection: "${SAM_DOCUMENTDB_STDDS_COLLECTION}"
 
-            session_service: *default_session_service
-            artifact_service: *default_artifact_service
+         session_service: *default_session_service
+         artifact_service: *default_artifact_service
 
-            artifact_handling_mode: "embed"
-            enable_embed_resolution: true
-            enable_artifact_content_instruction: true
+         artifact_handling_mode: "embed"
+         enable_embed_resolution: true
+         enable_artifact_content_instruction: true
 
-            agent_card:
-            description: "This agent provides real-time insights from FAA surface movement data, including aircraft and vehicle positions, runway events, and departure activities. It can query, filter, and summarize surface operations at specific airports to support situational awareness and performance analysis. Users can ask it for details like 'Which aircraft are taxiing at JFK?' or 'Show recent runway crossings at LAX.'"
-            defaultInputModes: ["text"]
-            defaultOutputModes: ["text", "file"]
-            skills:
-               - id: "mongo_query"
-                  name: "mongo_query"
-                  description: "Answers questions by querying the connected DocumentDB database and the STDDSPosition collection."
+         agent_card:
+         description: "This agent provides real-time insights from FAA surface movement data, including aircraft and vehicle positions, runway events, and departure activities. It can query, filter, and summarize surface operations at specific airports to support situational awareness and performance analysis. Users can ask it for details like 'Which aircraft are taxiing at JFK?' or 'Show recent runway crossings at LAX.'"
+         defaultInputModes: ["text"]
+         defaultOutputModes: ["text", "file"]
+         skills:
+            - id: "mongo_query"
+               name: "mongo_query"
+               description: "Answers questions by querying the connected DocumentDB database and the STDDSPosition collection."
 
-            agent_card_publishing:
-            interval_seconds: 30
+         agent_card_publishing:
+         interval_seconds: 30
 
-            agent_discovery:
-            enabled: false
+         agent_discovery:
+         enabled: false
 
-            inter_agent_communication:
-            allow_list: []
-            request_timeout_seconds: 30
+         inter_agent_communication:
+         allow_list: []
+         request_timeout_seconds: 30
    ```
 
 1. Update the `.env` file to have the following vars

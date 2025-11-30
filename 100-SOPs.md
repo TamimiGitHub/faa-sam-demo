@@ -92,7 +92,7 @@ sam plugin add faa-docs-agent --plugin sam-rag
 
 1. Update the `agent_card.description`
    ```
-   "Specialized Aviation Systems Expert with comprehensive access to Federal Aviation Administration (FAA) technical documentation and operational procedures. This RAG agent serves as an authoritative source for aviation professionals requiring detailed technical guidance on FAA data systems, flight operations, and airport surface management."
+   Specialized Aviation Systems Expert with comprehensive access to Federal Aviation Administration (FAA) technical documentation and operational procedures. This RAG agent serves as an authoritative source for aviation professionals requiring detailed technical guidance on FAA data systems, flight operations, and airport surface management.
    ```
    > Note: description should be properly indented
 
@@ -399,15 +399,13 @@ sam run configs/agents/faa-docs-agent.yaml
 
 The RAG agent has two main functionalities
 
-1. Ingesting documents: This is done in one of two ways:
+1. **Ingesting documents**: This is done in one of two ways:
   
-  1. Directory Upload: Add files in the configured the directory path in the <agent_name>.yaml file and the agent ingests documents in background automatically.
+    1. Directory Upload: Add files in the configured the directory path in the <agent_name>.yaml file and the agent ingests documents in background automatically.
 
-  1. Solace Agent Mesh UI on the browser (by default http://localhost:8000), attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
+    1. Solace Agent Mesh UI on the browser (by default http://localhost:8000), attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
 
-1. Retrieving documents
-
-  Sending prompts using a Solace Agent Mesh Gateway (e.g. WebUI) "search documents about and return a summary and referenced documents". It retrieves top similar documents and returns a summary of documents align with their original documents.
+1. **Retrieving documents**: Sending prompts using a Solace Agent Mesh Gateway (e.g. WebUI) "search documents about and return a summary and referenced documents". It retrieves top similar documents and returns a summary of documents align with their original documents.
 
 Now lets go ahead an upload our FAA standard operating procedures through a directory upload
 

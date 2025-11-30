@@ -336,13 +336,13 @@ apps:
 ```
 ### Step 3: Set Up Environment Variables
 
-Update your `.env` file with the necessary variables. Your workshop instructor will provide the specific values for your environment.
+Update your `.env` file with the necessary variables. Your workshop instructor will provide the specific values for your environment. Note the `QDRANT_COLLECTION` has to be updated with a unique name
 
 ```
 ## Qdrant Configuration
 QDRANT_URL="<qdrant_url>:6333"
 QDRANT_API_KEY="<API_KEY>"
-QDRANT_COLLECTION="SOP"
+QDRANT_COLLECTION="SOP-YourNAME"
 QDRANT_EMBEDDING_DIMENSION=1024
 DOCUMENTS_PATH="faa_documents"
 ## AWS Bedrock Configuration

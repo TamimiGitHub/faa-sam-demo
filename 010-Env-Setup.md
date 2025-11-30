@@ -41,7 +41,7 @@ To enhance the workshop experience, we recommend installing the Paste and Indent
 
    ![vscode extension install](./img/vscode_exntesion_install.png)
 
-1. Bring up the extensions pallet by typing `CMD+SHIFT+P` and type `paste-indent and click the cog icon next to the extension name
+1. Bring up the extensions pallet by typing `CMD+SHIFT+P` and type `paste-indent` and click the cog icon next to the extension name
 
    ![vscode extension install](./img/vscode_paste_indent.png)
 
@@ -167,8 +167,8 @@ After initializing sam, you should now see a
       aws_session_token: ${AWS_SESSION_TOKEN}
       temperature: 0.1  # Lower temperature for more focused responses
       # max_tokens: 2048  # Limit response length
-
-    general: &general_model
+    
+   general: &general_model
       model: ${BEDROCK_MODEL_NAME}
       model_id: ${BEDROCK_MODEL_ID}
       aws_access_key_id: ${AWS_ACCESS_KEY_ID}

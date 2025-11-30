@@ -49,11 +49,13 @@ To enhance the workshop experience, we recommend installing the Paste and Indent
 
    ![vscode extension install](./img/vscode_keybinding.png)
 
-1. When the key binding dialog comes up, press the paste shortcut on your keyboard `CMD+V`
+1. When the key binding dialog comes up, type the following on your keyboard `CMD+SHIFT+V`
 
 1. You should now see the new keybinding
 
    ![vscode extension install](./img/vscode_keybinding2.png)
+
+   > Tip: When copying any yaml content, make sure you paste it in the right location using your shortcut `CMD+SHIFT+V` to make sure indentation is respected. It will save alot of hassle! 
 
 ## 3. Installing Solace Agent Mesh
 

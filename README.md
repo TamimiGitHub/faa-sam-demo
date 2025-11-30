@@ -65,6 +65,7 @@ Ready for takeoff? Let's transform how aviation professionals interact with thei
 ## Prerequisites
 
 - Command-line knowledge
+- Make sure you have the latest instructions by typing `git pull` from your terminal
 - Python 3.10+
 - AWS account. If you are attending this event in person, the necessary plumbing is already configured for you
 - Your curiosity!

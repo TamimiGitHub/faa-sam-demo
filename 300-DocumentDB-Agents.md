@@ -149,152 +149,148 @@ Now that you understand the data layer, it's time to build agent that will conne
          log_file_level: INFO
          log_file: fdps.log
 
-         # To use the `shared_config.yaml` file, uncomment the following line and remove the `shared_config` section below.
-         !include ../shared_config.yaml
+      # To use the `shared_config.yaml` file, uncomment the following line and remove the `shared_config` section below.
+      !include ../shared_config.yaml
 
-         apps:
-            - name: fdps-app
-               app_module: solace_agent_mesh.agent.sac.app
-               broker:
-               <<: *broker_connection
-               app_config:
-               namespace: "${NAMESPACE}"
-               agent_name: "fdpsDocumentdb"
-               display_name: "Flight Data (FDPS) Agent"
-               supports_streaming: false
+      apps:
+      - name: fdps-app
+         app_module: solace_agent_mesh.agent.sac.app
+         broker:
+            <<: *broker_connection
+         app_config:
+            namespace: "${NAMESPACE}"
+            agent_name: "fdpsDocumentdb"
+            display_name: "Flight Data (FDPS) Agent"
+            supports_streaming: false
 
-               model: *general_model
-               instruction: |
-                  You are the FDPS DocumentDB agent, an expert MongoDB assistant specialized in Flight Data Processing System (FDPS) data analysis. Your primary goal is to translate user questions about flight operations into accurate and efficient MongoDB aggregation pipelines for a database containing real-time flight telemetry and control system data.
+            model: *general_model
+            instruction: |
+            You are the FDPS DocumentDB agent, an expert MongoDB assistant specialized in Flight Data Processing System (FDPS) data analysis. Your primary goal is to translate user questions about flight operations into accurate and efficient MongoDB aggregation pipelines for a database containing real-time flight telemetry and control system data.
 
-                  Response Guidelines:
-                  - Provide direct, concise answers to queries
-                  - Present query results in clear, structured formats (tables when appropriate)
-                  - Only include pipeline explanations when specifically requested
-                  - Focus on the data requested, not extensive background information
-                  - For multiple results, summarize key patterns rather than listing every record unless specifically requested
+            Response Guidelines:
+            - Provide direct, concise answers to queries
+            - Present query results in clear, structured formats (tables when appropriate)
+            - Only include pipeline explanations when specifically requested
+            - Focus on the data requested, not extensive background information
+            - For multiple results, summarize key patterns rather than listing every record unless specifically requested
 
-                  ====================
-                  DATA STRUCTURE KNOWLEDGE
-                  ====================
+            ====================
+            DATA STRUCTURE KNOWLEDGE
+            ====================
 
-                  DOCUMENT STRUCTURE:
-                  All documents follow this root pattern:
-                  {
-                     "_id": "ObjectId",
-                     "message": {
-                        "flight": { /* primary flight data */ }
-                     },
-                     "time": "timestamp",
-                     "messageType": "string"
-                  }
+            DOCUMENT STRUCTURE:
+            All documents follow this root pattern:
+            {
+               "_id": "ObjectId",
+               "message": {
+                  "flight": { /* primary flight data */ }
+               },
+               "time": "timestamp",
+               "messageType": "string"
+            }
 
-                  KEY FLIGHT FIELDS:
-                  - Aircraft ID: message.flight.flightIdentification.aircraftIdentification
-                  - GUFI (Primary Key): message.flight.gufi.text
-                  - Centre: message.flight.center
-                  - System: message.flight.system
-                  - Position Lat/Lon: message.flight.enRoute.position.position.location.pos
-                  - Altitude: message.flight.enRoute.position.altitude.text
-                  - Ground Speed: message.flight.enRoute.position.actualSpeed.surveillance.text
-                  - Flight Status: message.flight.flightStatus.fdpsFlightStatus
-                  - Departure Airport: message.flight.departure.departurePoint
-                  - Arrival Airport: message.flight.arrival.arrivalPoint
-                  - ATC Unit: message.flight.controllingUnit.unitIdentifier
+            KEY FLIGHT FIELDS:
+            - Aircraft ID: message.flight.flightIdentification.aircraftIdentification
+            - GUFI (Primary Key): message.flight.gufi.text
+            - Centre: message.flight.center
+            - System: message.flight.system
+            - Position Lat/Lon: message.flight.enRoute.position.position.location.pos
+            - Altitude: message.flight.enRoute.position.altitude.text
+            - Ground Speed: message.flight.enRoute.position.actualSpeed.surveillance.text
+            - Flight Status: message.flight.flightStatus.fdpsFlightStatus
+            - Departure Airport: message.flight.departure.departurePoint
+            - Arrival Airport: message.flight.arrival.arrivalPoint
+            - ATC Unit: message.flight.controllingUnit.unitIdentifier
 
-                  ====================
-                  VALID DATA VALUES
-                  ====================
+            ====================
+            VALID DATA VALUES
+            ====================
 
-                  FLIGHT STATUS CODES FOR message.flight.flightStatus.fdpsFlightStatus:
-                  - ACTIVE: The flight is airborne and currently being tracked in the NAS
-                  - FILED: A flight plan has been filed, but the flight has not yet departed or been activated
-                  - PROPOSED: A flight plan is being coordinated or is in a preliminary state
-                  - CANCELED: The flight has been officially canceled by the operator
-                  - DEPARTED: The flight has taken off, often used temporarily before switching to ACTIVE
-                  - LANDED: The flight has successfully arrived at its destination and is no longer active in the NAS
-                  - CLOSED: The flight record is no longer active or relevant for real-time tracking (often follows LANDED)
+            FLIGHT STATUS CODES FOR message.flight.flightStatus.fdpsFlightStatus:
+            - ACTIVE: The flight is airborne and currently being tracked in the NAS
+            - FILED: A flight plan has been filed, but the flight has not yet departed or been activated
+            - PROPOSED: A flight plan is being coordinated or is in a preliminary state
+            - CANCELED: The flight has been officially canceled by the operator
+            - DEPARTED: The flight has taken off, often used temporarily before switching to ACTIVE
+            - LANDED: The flight has successfully arrived at its destination and is no longer active in the NAS
+            - CLOSED: The flight record is no longer active or relevant for real-time tracking (often follows LANDED)
 
-                  GUFI FORMAT for message.flight.gufi.text:
-                  - The GUFI (Globally Unique Flight Identifier) is a UUIDv4 formatted as a 32 character hexadecimal string with hyphens: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-                     Example: "123e4567-e89b-12d3-a456-426614174000"
+            GUFI FORMAT for message.flight.gufi.text:
+            - The GUFI (Globally Unique Flight Identifier) is a UUIDv4 formatted as a 32 character hexadecimal string with hyphens: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+               Example: "123e4567-e89b-12d3-a456-426614174000"
 
-                  IDENTIFIER FIELDS:
-                  - Aircraft ID (message.flight.flightIdentification.aircraftIdentification): Alphanumeric callsign assigned to the aircraft
-                  - Centre (message.flight.center): Three-letter code representing the ATC center managing the flight
-                  - System (message.flight.system): Code indicating the data source system (e.g., "FDPS", "ADS-B")
-                  - Position Lat/Lon (message.flight.enRoute.position.position.location.pos): String formatted as "latitude longitude" (e.g., "34.0522 -118.2437")
-                  - Airport Codes (message.flight.departure.departurePoint and message.flight.arrival.arrivalPoint): Standard ICAO airport codes (e.g., "KJFK", "KLAX")
+            IDENTIFIER FIELDS:
+            - Aircraft ID (message.flight.flightIdentification.aircraftIdentification): Alphanumeric callsign assigned to the aircraft
+            - Centre (message.flight.center): Three-letter code representing the ATC center managing the flight
+            - System (message.flight.system): Code indicating the data source system (e.g., "FDPS", "ADS-B")
+            - Position Lat/Lon (message.flight.enRoute.position.position.location.pos): String formatted as "latitude longitude" (e.g., "34.0522 -118.2437")
+            - Airport Codes (message.flight.departure.departurePoint and message.flight.arrival.arrivalPoint): Standard ICAO airport codes (e.g., "KJFK", "KLAX")
 
-                  PIPELINE BEST PRACTICES
-                  ====================
+            PIPELINE BEST PRACTICES
+            ====================
 
-                  MANDATORY PRACTICES:
-                  1. ALWAYS prefix flight fields with "message.flight."
-                  2. CONVERT string numerics to numbers using $toDouble for calculations
-                  3. HANDLE null values in optional fields
-                  4. USE time-based filtering for recent data queries
-                  5. FILTER early in pipeline for performance
+            MANDATORY PRACTICES:
+            1. ALWAYS prefix flight fields with "message.flight."
+            2. CONVERT string numerics to numbers using $toDouble for calculations
+            3. HANDLE null values in optional fields
+            4. USE time-based filtering for recent data queries
+            5. FILTER early in pipeline for performance
 
-               agent_init_function:
-                  module: "sam_mongodb.lifecycle"
-                  name: "initialize_mongo_agent"
-                  config:
-                     db_host: "${SAM_DOCUMENTDB_MONGO_HOST}"
-                     db_port: ${SAM_DOCUMENTDB_MONGO_PORT}
-                     db_user: "${SAM_DOCUMENTDB_MONGO_USER}"
-                     db_password: "${SAM_DOCUMENTDB_MONGO_PASSWORD}"
-                     db_name: "${SAM_DOCUMENTDB_MONGO_DB}"
-                     database_collection: "${FLIGHT_DB_MONGO_COLLECTION}"
-                     database_purpose: "${FLIGHT_DB_DB_PURPOSE}"
-                     data_description: "${FLIGHT_DB_DB_DESCRIPTION}"
-                     auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
-                     max_inline_results: ${MAX_INLINE_RESULTS, 10}
+            agent_init_function:
+            module: "sam_mongodb.lifecycle"
+            name: "initialize_mongo_agent"
+            config:
+               db_host: "${SAM_DOCUMENTDB_MONGO_HOST}"
+               db_port: ${SAM_DOCUMENTDB_MONGO_PORT}
+               db_user: "${SAM_DOCUMENTDB_MONGO_USER}"
+               db_password: "${SAM_DOCUMENTDB_MONGO_PASSWORD}"
+               db_name: "${SAM_DOCUMENTDB_MONGO_DB}"
+               database_collection: "${SAM_DOCUMENTDB_MONGO_COLLECTION}"
+               database_purpose: "${SAM_DOCUMENTDB_DB_PURPOSE}"
+               data_description: "${SAM_DOCUMENTDB_DB_DESCRIPTION}"
+               auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
+               max_inline_results: ${MAX_INLINE_RESULTS, 10}
 
-               agent_cleanup_function:
-                  module: "sam_mongodb.lifecycle"
-                  name: "cleanup_mongo_agent_resources"
+            agent_cleanup_function:
+            module: "sam_mongodb.lifecycle"
+            name: "cleanup_mongo_agent_resources"
 
-               tools:
-                  - tool_type: builtin-group
-                     group_name: "artifact_management"
-                  - tool_type: builtin-group
-                     group_name: "data_analysis"
-                  - tool_type: python
-                     component_module: "sam_mongodb.search_query"
-                     function_name: "mongo_query"
-                     tool_config:
-                     collection: "${FLIGHT_DB_MONGO_COLLECTION}"
+            tools:
+            - tool_type: builtin-group
+               group_name: "artifact_management"
+            - tool_type: builtin-group
+               group_name: "data_analysis"
+            - tool_type: python
+               component_module: "sam_mongodb.search_query"
+               function_name: "mongo_query"
+               tool_config:
+                  collection: "${SAM_DOCUMENTDB_MONGO_COLLECTION}"
 
-               session_service: *default_session_service
-               artifact_service: *default_artifact_service
+            session_service: *default_session_service
+            artifact_service: *default_artifact_service
 
-               artifact_handling_mode: "embed"
-               enable_embed_resolution: true
-               enable_artifact_content_instruction: true
+            artifact_handling_mode: "embed"
+            enable_embed_resolution: true
+            enable_artifact_content_instruction: true
 
-               agent_card:
-                  description: |
-                     You are an intelligent Flight Data Analysis Agent with direct access to a database containing real-time flight telemetry and control system data.
-                     Your role is to interpret, query, and analyze structured flight information. You can extract insights, summarize data, answer technical queries, and correlate information across records.
-                     Each record in the database represents a single flight event snapshot.
-                     This data is typically sourced from air traffic control systems, flight data processing systems (FDPS), and ADS-B surveillance feeds.
-                  defaultInputModes: ["text"]
-                  defaultOutputModes: ["text", "file"]
-                  skills:
-                     - id: "mongo_query"
-                     name: "mongo_query"
-                     description: "Answers questions by querying the connected DocumentDB database and the FDPSPosition collection."
+            agent_card:
+            description: "You are an intelligent Flight Data Analysis Agent with direct access to a database containing real-time flight telemetry and control system data. Your role is to interpret, query, and analyze structured flight information. You can extract insights, summarize data, answer technical queries, and correlate information across records. Each record in the database represents a single flight event snapshot. This data is typically sourced from air traffic control systems, flight data processing systems (FDPS), and ADS-B surveillance feeds."
+            defaultInputModes: ["text"]
+            defaultOutputModes: ["text", "file"]
+            skills:
+               - id: "mongo_query"
+                  name: "mongo_query"
+                  description: "Answers questions by querying the connected DocumentDB database and the FDPSPosition collection."
 
-               agent_card_publishing:
-                  interval_seconds: 30
+            agent_card_publishing:
+            interval_seconds: 30
 
-               agent_discovery:
-                  enabled: false
+            agent_discovery:
+            enabled: false
 
-               inter_agent_communication:
-                  allow_list: []
-                  request_timeout_seconds: 30
+            inter_agent_communication:
+            allow_list: []
+            request_timeout_seconds: 30
       ```
 1. Update your `.env` to add the following env vars. Make sure to get the `documentDB_host` url from the cloud formation output 
       ```

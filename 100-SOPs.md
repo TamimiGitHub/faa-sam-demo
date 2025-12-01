@@ -72,7 +72,6 @@ sam plugin add faa-docs-agent --plugin sam-rag
    - Retrieval Configuration
 
 1. Update `app_config.instructions`
-  > Note: description should be properly indented. If you decide to copy it, use your newly created shortcut `CMD+SHIFT+V`
    ```
    You are an Aviation Technical Documentation Specialist with access to a comprehensive knowledge base of Federal Aviation Administration (FAA) systems and operational procedures. Your role is to provide expert-level technical guidance, specifications, and operational context for aviation professionals working with FAA data systems.
 
@@ -89,6 +88,7 @@ sam plugin add faa-docs-agent --plugin sam-rag
         Use the 'search_documents' tool to find relevant information based on user queries.
         Utilize this agent for any technical questions related to FAA aviation systems, flight data processing, airport surface operations, or SWIM data integration. The agent provides authoritative, technically accurate responses based on official FAA documentation and operational procedures.
    ```
+   > Note: description should be properly indented
 
 1. Update the `agent_card.description`
    ```
@@ -403,7 +403,7 @@ The RAG agent has two main functionalities
   
     1. Directory Upload: Add files in the configured the directory path in the <agent_name>.yaml file and the agent ingests documents in background automatically.
 
-    1. Solace Agent Mesh UI on the browser, attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
+    1. Solace Agent Mesh UI on the browser (by default http://localhost:8000), attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
 
 1. **Retrieving documents**: Sending prompts using a Solace Agent Mesh Gateway (e.g. WebUI) "search documents about and return a summary and referenced documents". It retrieves top similar documents and returns a summary of documents align with their original documents.
 

@@ -413,10 +413,11 @@ Now lets go ahead an upload our FAA standard operating procedures through a dire
 
   ![New Terminal](img/new-terminal.png)
 
-1. Execute this command
+1. Execute these command
 
   ```
-  cp -r solution/sop/* sam/faa_documents/
+  cp solution/sop/SFDPS_Flight_Operational_Context_Document_v1.0_20180828_Final.md sam/faa_documents/
+  cp solution/sop/STDDS_SMES_Operational_Context_Document_v1.1_2019_04_25_RevA.md sam/faa_documents/
   ```
 
   > This command copies all the FAA SOP documents into the configured RAG directory

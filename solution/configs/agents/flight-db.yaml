@@ -99,9 +99,9 @@ apps:
           db_user: "${SAM_DOCUMENTDB_MONGO_USER}"
           db_password: "${SAM_DOCUMENTDB_MONGO_PASSWORD}"
           db_name: "${SAM_DOCUMENTDB_MONGO_DB}"
-          database_collection: "${SAM_DOCUMENTDB_MONGO_COLLECTION}"
-          database_purpose: "${SAM_DOCUMENTDB_DB_PURPOSE}"
-          data_description: "${SAM_DOCUMENTDB_DB_DESCRIPTION}"
+          database_collection: "${FLIGHT_DB_MONGO_COLLECTION}"
+          database_purpose: "${FLIGHT_DB_DB_PURPOSE}"
+          data_description: "${FLIGHT_DB_DB_DESCRIPTION}"
           auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
           max_inline_results: ${MAX_INLINE_RESULTS, 10}
 
@@ -118,7 +118,7 @@ apps:
           component_module: "sam_mongodb.search_query"
           function_name: "mongo_query"
           tool_config:
-            collection: "${SAM_DOCUMENTDB_MONGO_COLLECTION}"
+            collection: "${FLIGHT_DB_MONGO_COLLECTION}"
 
       session_service: *default_session_service
       artifact_service: *default_artifact_service

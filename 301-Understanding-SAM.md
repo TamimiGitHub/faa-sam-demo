@@ -8,12 +8,11 @@
 - [Event-Driven Architecture with Pub/Sub](#event-driven-architecture-with-pubsub)
   - [The Solace Event Broker](#the-solace-event-broker)
   - [A2A Protocol Communication](#a2a-protocol-communication)
-- [Key Components of Agent Mesh](#key-components-of-agent-mesh)
-  - [Agents](#agents)
-  - [Gateways](#gateways)
-  - [Agent Discovery](#agent-discovery)
-  - [Session and Artifact Services](#session-and-artifact-services)
-- [Practical Application: What We Built](#practical-application-what-we-built)
+- [Our use-case](#our-use-case)
+  - [1. Created DocumentDB Agents](#1-created-documentdb-agents)
+  - [2. Queried with Natural Language](#2-queried-with-natural-language)
+  - [3. How the Artifact Service Helped](#3-how-the-artifact-service-helped)
+  - [4. Event-Driven Benefits](#4-event-driven-benefits)
 - [Next Steps](#next-steps)
 
 ---

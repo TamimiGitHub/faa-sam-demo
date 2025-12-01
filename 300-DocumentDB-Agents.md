@@ -518,4 +518,4 @@ This knowledge will be essential for formulating effective natural language quer
 
 Now that we have our DocumentDB agents set up and connected, it's important to understand how the underlying Solace Agent Mesh architecture enables these capabilities. Before we start querying our data, let's take a moment to understand the key concepts that power this system.
 
-[Continue to Understanding Solace Agent Mesh](3001-Understanding-SAM.md)
+[Continue to Understanding Solace Agent Mesh](301-Understanding-SAM.md)

@@ -461,18 +461,19 @@ Now that you understand the data layer, it's time to build agent that will conne
 
 ### Verify Agent Availability
 
-1. Navigate to the "Agents" tab or section.
-2. Confirm that you see both newly created agents:
+1. Navigate back to the "Agents" tab on the Solace Agent Mesh WebUI
+1. Confirm that you see both newly created agents:
    - FDPS Agent
    - STDDS Agent
-3. Verify that both agents show as "Available" or "Online".
+
+  ![Agents](img/agents_stdds_fdps.png)
 
 ### Test the FDPS Agent
 
-In the Agent Mesh chat or query interface, run the following prompt:
+In the Agent Mesh chat interface, run the following prompt:
 
 ```
-Get me an example document from the FDPS database.
+Get me an example FDPS document
 ```
 
 **Expected Response:**
@@ -490,7 +491,7 @@ The agent should return a JSON document showing the structure of FDPS data, incl
 Run the following prompt:
 
 ```
-Get me an example document from the STDDS database.
+Get me an example STTDS document
 ```
 
 **Expected Response:**
@@ -515,6 +516,6 @@ This knowledge will be essential for formulating effective natural language quer
 
 ## Next Steps
 
-Now that we have our DocumentDB agents set up and connected, we're ready to start querying our flight data using natural language. In the next part, we'll explore how to ask questions about our data and interpret the results.
+Now that we have our DocumentDB agents set up and connected, it's important to understand how the underlying Solace Agent Mesh architecture enables these capabilities. Before we start querying our data, let's take a moment to understand the key concepts that power this system.
 
-[Continue to Asking Questions in Natural Language](400-Natural-Language.md)
+[Continue to Understanding Solace Agent Mesh](3001-Understanding-SAM.md)

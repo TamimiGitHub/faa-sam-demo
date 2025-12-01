@@ -81,6 +81,7 @@ This workshop is divided into the following  parts:
 1. [Standard Operating Procedures](100-SOPs.md) - Understanding FDPS, STDDS, and RAG
 1. [Data Layer](200-Data-Layer.md) - Setting up the data infrastructure
 1. [DocumentDB Agents](300-DocumentDB-Agents.md) - Creating database agents
+1. [Understanding Solace Agent Mesh](3001-Understanding-SAM.md) - Core concepts and architecture
 1. [Natural Language Queries](400-Natural-Language.md) - Querying data using natural language
 1. [Flight Plan Intelligence](500-Flight-Plan.md) - Adding flight plan analysis
 1. [Event-Based AI](600-Event-Based.md) - Implementing event-triggered reporting

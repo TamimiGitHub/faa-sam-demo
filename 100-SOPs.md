@@ -336,7 +336,7 @@ apps:
 ```
 ### Step 3: Set Up Environment Variables
 
-Update your `.env` file with the necessary variables. Your workshop instructor will provide the specific values for your environment. Note the `QDRANT_COLLECTION` has to be updated with a unique name
+Update your `.env` file with the necessary variables. Please refer to the cloudformation output for `VectorDBEndpoint` and `VectorDBKey`. Note the `QDRANT_COLLECTION` has to be updated with a unique name
 
 ```
 ## Qdrant Configuration
@@ -349,7 +349,7 @@ DOCUMENTS_PATH="faa_documents"
 BEDROCK_EMBEDDING_MODEL_NAME="bedrock/amazon.titan-embed-text-v2:0"
 ```
 
-Please refer to the cloudformation output for vectorDB endpoint and API key
+
 
 ### Step 4: Create Document Directory
 

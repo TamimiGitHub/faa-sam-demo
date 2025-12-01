@@ -25,9 +25,9 @@ Flight plans contain:
 1. Run the following command to add the RAG plugin:
 
    ```sh
-   sam plugin add flightPlan --plugin sam-mongodb
+   sam plugin add flight-plan --plugin sam-mongodb
    ```
-   Note: observe the newly created `flightPlan.yaml` file under `configs/agents`
+   Note: observe the newly created `flight-plan.yaml` file under `configs/agents`
 
 1. Open the newly created file and paste the following content:
 
@@ -296,10 +296,12 @@ Flight plans contain:
       ```
 1. Save the fle and run it
    ``` 
-   sam run configs/agents/flightPlan.yaml
+   sam run configs/agents/flight-plan.yaml
    ```
 
 1. Navigate back to the SAM WebUI instance and observe the new agent.
+
+![Flight planner](img/flight-planner.png)
 
 ## Step 3: Analyze Flight Plan Adherence
 

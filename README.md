@@ -95,6 +95,7 @@ If you need assistance during the workshop:
 ## Additional Resources
 
 - ⭐️ [Solace Agent Mesh Github Repo](https://github.com/SolaceLabs/solace-agent-mesh)
+- [What is Agentic AI](https://solace.com/what-is-agentic-ai/)
 - [Solace Agent Mesh Product](https://solace.com/products/agent-mesh/)
 - [Event-Driven Architecture Patterns](https://solace.com/)
 - [AWS Agent Core](https://aws.amazon.com/bedrock/agentcore/)

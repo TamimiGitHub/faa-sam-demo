@@ -127,7 +127,7 @@ After initializing sam, you should now see a
    ```
 
 1. Update the necessary variables as follows:
-   - `SOLACE_BROKER_URL` - Get the url from the cloud formation output
+   - `SOLACE_BROKER_URL` - Get the url from the cloud formation output. NOTE: Make sure to remote the `https://` and the port `:8080` from the url
       
       ![URL](img/url_broker_copy.png)
 

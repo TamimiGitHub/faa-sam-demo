@@ -287,7 +287,8 @@ Your shared_config.yaml file should look like this
       max_result_preview_bytes: 4096
    ```
 1. From terminal, run sam `sam run`
-   sam_webui.png
+   
+   ![SAM WEB](./img/sam_webui.png)
 
 1. Navigate to the sam web UI. Note you can get the URL from the cloudformation output
 

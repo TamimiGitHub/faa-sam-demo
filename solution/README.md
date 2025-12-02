@@ -8,7 +8,7 @@
 
 1. Create a virtual env
    ```
-   python3 -m venv .venv
+   uv venv --python 3.11
    ```
 1. Activate the virtual environment
    ```
@@ -16,7 +16,7 @@
    ```
 1. Install the requirements
    ```
-   pip install -r requirements.tx
+   uv pip install -r requirements.txt 
    ```
 
 1. Update the env variables in `.env`

@@ -51,7 +51,7 @@ To enhance the workshop experience, we recommend installing the Paste and Indent
 
    ![vscode extension install](./img/vscode_keybinding.png)
 
-1. When the key binding dialog comes up, type the following on your keyboard `CMD+SHIFT+V`
+1. When the key binding dialog comes up, type the following on your keyboard `CMD+SHIFT+V` and hit enter
 
 1. You should now see the new keybinding
 

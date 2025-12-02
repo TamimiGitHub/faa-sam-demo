@@ -64,7 +64,7 @@ To enhance the workshop experience, we recommend installing the Paste and Indent
 1. Navigate to the sam directory and create a virtual environment
    ```
    cd sam
-   uv venv --python 3.11
+   python3 -m venv .venv
    ```
 1. Activate the virtual environment
    ```
@@ -72,7 +72,7 @@ To enhance the workshop experience, we recommend installing the Paste and Indent
    ```
 1. Install the requirements
    ```
-   uv pip install -r requirements.txt 
+   pip install -r requirements.txt
    ```
    > Make sure you have activated your virtual environment before proceeding with the workshop. Run `source .venv/bin/activate` if you haven't already done so. Anytime you open a new terminal, you will have to navigate to the `sam` dir and activate the python virtual environment
 

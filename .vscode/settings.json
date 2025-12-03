@@ -1,1 +1,9 @@
-"markdown.preview.doubleClickToSwitchToEditor": false
+{
+    "markdown.preview.doubleClickToSwitchToEditor": false,
+    "markdown.styles": [
+        "util/markdown-preview.css"
+    ],
+    "markdown.preview.scripts": [
+        "util/markdown-preview.js"
+    ]
+}

@@ -59,7 +59,7 @@ sam plugin add faa-docs-agent --plugin sam-rag
 
 1. Open the new file that was generated at [configs/agents/faa-docs-agent.yaml](./sam/configs/agents/faa-docs-agent.yaml) and replace the content with the following:
 
-```
+```yaml
 # This is a configuration template for the SAM RAG Agent Plugin.
 #
 # Plugin Metadata:
@@ -272,20 +272,20 @@ apps:
 ```
 ### Step 3: Set Up Environment Variables
 
-Update your `.env` file with the necessary variables. Please refer to the cloudformation output for `VectorDBEndpoint` and `VectorDBKey`. Note the `QDRANT_COLLECTION` has to be updated with a unique name
+Confirm your `.env` file has the correct values for the following:
 
 ```
 ## Qdrant Configuration
 QDRANT_URL="<qdrant_url>:6333"
 QDRANT_API_KEY="<API_KEY>"
-QDRANT_COLLECTION="SOP-YourNAME"
+QDRANT_COLLECTION="SOP-AWSAccountID"
 QDRANT_EMBEDDING_DIMENSION=1024
 DOCUMENTS_PATH="faa_documents"
 ## AWS Bedrock Configuration
 BEDROCK_EMBEDDING_MODEL_NAME="bedrock/amazon.titan-embed-text-v2:0"
 ```
 
-
+> Note: please refer to the cloudformation output for `VectorDBEndpoint` and `VectorDBKey`. Note the `QDRANT_COLLECTION` has to be updated with a unique name
 
 ### Step 4: Create Document Directory
 

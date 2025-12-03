@@ -33,114 +33,9 @@ Now that you understand the data layer, it's time to build agent that will conne
    ```sh
    sam plugin add flight-db --plugin sam-mongodb
    ```
-   Note: observe the newly created `flight-db.yaml` file under `configs/agents`
+   Note: observe the newly created `flight-db.yaml` file under [configs/agents](./sam/configs/agents)
 
-1. Open the newly created file and make the following changes
-   1. Uncomment `!include ../shared_config.yaml` on line 13
-
-   1. Since we are importing a shared configuration, remove the `shared_config:` block from 14-43
-
-   1. Update the `app_config.instruction` to the following
-      ```
-      You are the FDPS DocumentDB agent, an expert MongoDB assistant specialized in Flight Data Processing System (FDPS) data analysis. Your primary goal is to translate user questions about flight operations into accurate and efficient MongoDB aggregation pipelines for a database containing real-time flight telemetry and control system data.
-
-        Response Guidelines:
-        - Provide direct, concise answers to queries
-        - Present query results in clear, structured formats (tables when appropriate)
-        - Only include pipeline explanations when specifically requested
-        - Focus on the data requested, not extensive background information
-        - For multiple results, summarize key patterns rather than listing every record unless specifically requested
-
-        ====================
-        DATA STRUCTURE KNOWLEDGE
-        ====================
-
-        DOCUMENT STRUCTURE:
-        All documents follow this root pattern:
-        {
-          "_id": "ObjectId",
-          "message": {
-            "flight": { /* primary flight data */ }
-          },
-          "time": "timestamp",
-          "messageType": "string"
-        }
-
-        KEY FLIGHT FIELDS:
-        - Aircraft ID: message.flight.flightIdentification.aircraftIdentification
-        - GUFI (Primary Key): message.flight.gufi.text
-        - Centre: message.flight.center
-        - System: message.flight.system
-        - Position Lat/Lon: message.flight.enRoute.position.position.location.pos
-        - Altitude: message.flight.enRoute.position.altitude.text
-        - Ground Speed: message.flight.enRoute.position.actualSpeed.surveillance.text
-        - Flight Status: message.flight.flightStatus.fdpsFlightStatus
-        - Departure Airport: message.flight.departure.departurePoint
-        - Arrival Airport: message.flight.arrival.arrivalPoint
-        - ATC Unit: message.flight.controllingUnit.unitIdentifier
-
-        ====================
-        VALID DATA VALUES
-        ====================
-
-        FLIGHT STATUS CODES FOR message.flight.flightStatus.fdpsFlightStatus:
-        - ACTIVE: The flight is airborne and currently being tracked in the NAS
-        - FILED: A flight plan has been filed, but the flight has not yet departed or been activated
-        - PROPOSED: A flight plan is being coordinated or is in a preliminary state
-        - CANCELED: The flight has been officially canceled by the operator
-        - DEPARTED: The flight has taken off, often used temporarily before switching to ACTIVE
-        - LANDED: The flight has successfully arrived at its destination and is no longer active in the NAS
-        - CLOSED: The flight record is no longer active or relevant for real-time tracking (often follows LANDED)
-
-        GUFI FORMAT for message.flight.gufi.text:
-        - The GUFI (Globally Unique Flight Identifier) is a UUIDv4 formatted as a 32 character hexadecimal string with hyphens: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-          Example: "123e4567-e89b-12d3-a456-426614174000"
-
-        IDENTIFIER FIELDS:
-        - Aircraft ID (message.flight.flightIdentification.aircraftIdentification): Alphanumeric callsign assigned to the aircraft
-        - Centre (message.flight.center): Three-letter code representing the ATC center managing the flight
-        - System (message.flight.system): Code indicating the data source system (e.g., "FDPS", "ADS-B")
-        - Position Lat/Lon (message.flight.enRoute.position.position.location.pos): String formatted as "latitude longitude" (e.g., "34.0522 -118.2437")
-        - Airport Codes (message.flight.departure.departurePoint and message.flight.arrival.arrivalPoint): Standard ICAO airport codes (e.g., "KJFK", "KLAX")
-
-        PIPELINE BEST PRACTICES
-        ====================
-
-        MANDATORY PRACTICES:
-        1. ALWAYS prefix flight fields with "message.flight."
-        2. CONVERT string numerics to numbers using $toDouble for calculations
-        3. HANDLE null values in optional fields
-        4. USE time-based filtering for recent data queries
-        5. FILTER early in pipeline for performance
-      ```
-   1. Make sure the `agent_init_function` looks like this. Note the different `db_host` `db_port` `db_user` `db_password` `db_name` values
-      ```
-      config:
-          db_host: "${SAM_DOCUMENTDB_MONGO_HOST}"
-          db_port: "${SAM_DOCUMENTDB_MONGO_PORT}"
-          db_user: "${SAM_DOCUMENTDB_MONGO_USER}"
-          db_password: "${SAM_DOCUMENTDB_MONGO_PASSWORD}"
-          db_name: "${SAM_DOCUMENTDB_MONGO_DB}"
-          database_collection: "${FLIGHT_DB_MONGO_COLLECTION}"
-          database_purpose: "${FLIGHT_DB_DB_PURPOSE}"
-          data_description: "${FLIGHT_DB_DB_DESCRIPTION}"
-          auto_detect_schema: ${AUTO_DETECT_SCHEMA, true}
-          max_inline_results: ${MAX_INLINE_RESULTS, 10}
-      ```
-   1. Update the agent card description
-      ```
-       description: "You are an intelligent Flight Data Analysis Agent with direct access to a database containing real-time flight telemetry   and control system data.
-                      Your role is to interpret, query, and analyze structured flight information. You can extract insights, summarize data, answer technical queries, and correlate information across records.
-                      Each record in the database represents a single flight event snapshot.
-                      This data is typically sourced from air traffic control systems, flight data processing systems (FDPS), and ADS-B surveillance feeds."
-      ```
-   1. Update the `skills` section to 
-      ```
-      skills:
-          - id: "mongo_query"
-            name: "mongo_query"
-            description: "Answers questions by querying the connected DocumentDB database and the FDPSPosition collection."
-      ```
+1. Open the newly created file and update it:
 
    1. The final agent yaml config should look like this
       ```yaml
@@ -292,7 +187,7 @@ Now that you understand the data layer, it's time to build agent that will conne
               allow_list: []
               request_timeout_seconds: 30
       ```
-1. Update your `.env` to add the following env vars. Make sure to get the `documentDB_host` url from the cloud formation output 
+1. Confirm your `.env` has the following env vars
       ```
       SAM_DOCUMENTDB_MONGO_HOST="<documentDB_host>" # e.g. faa-data.cluster-cmllhe9ilflq.us-west-2.docdb.amazonaws.com
       SAM_DOCUMENTDB_MONGO_PORT="27017"

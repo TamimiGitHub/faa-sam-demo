@@ -91,14 +91,14 @@
     "initial_prompt": "Generate a landing report for flight {{Flight ID}} that landed at {{Airport}} at {{Timestamp}}.\nInclude route adherence, timing performance, and any significant events."
   },
   {
-    "name": "SOPs overview",
+    "name": "101 - SOPs overview",
     "description": "Provides an overview of the FDPS and STDDS OPS from the RAG database",
     "category": "Standard Operation Procedure",
     "command": "sop",
     "initial_prompt": "Tell me about the FDPS and STDDS systems and data."
   },
   {
-    "name": "SOPs analysis",
+    "name": "102 - SOPs analysis",
     "description": "Provides an analysis of the FDPS and STDDS OPS from the RAG database",
     "category": "Standard Operation Procedure Analysis",
     "command": "sop-analyses",

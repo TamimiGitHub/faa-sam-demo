@@ -122,7 +122,7 @@ SAM_DOCUMENTDB_FLIGHTPLAN_DB_DESCRIPTION="Contains real-time flight plan records
 ## Qdrant Configuration
 QDRANT_URL="{qdrant_endpoint}:6333"
 QDRANT_API_KEY="{qdrant_api_key}"
-QDRANT_COLLECTION="SOP"
+QDRANT_COLLECTION="SOP-{account_id}"
 QDRANT_EMBEDDING_DIMENSION=1024
 OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
 DOCUMENTS_PATH="sop"

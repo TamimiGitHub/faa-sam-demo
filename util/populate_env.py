@@ -152,54 +152,32 @@ def main():
     """
     Main function to orchestrate CloudFormation stack retrieval and .env file creation.
     """
-    print("=" * 60)
-    print("FAA Environment Setup Script")
-    print("=" * 60)
-    print()
     
     # Get AWS Account ID
-    print("Step 1: Retrieving AWS Account ID...")
+    # print("Retrieving AWS Account ID...")
     aws_account_id = execute_aws_command(
         "aws sts get-caller-identity --query 'Account' --output text",
         parse_json=False
     )
     
-    if aws_account_id:
-        print(f"  AWS Account ID: {aws_account_id}")
-    else:
-        print("Warning: Failed to retrieve AWS Account ID")
-    print()
     
     # Execute CloudFormation commands
-    print("Step 2: Retrieving CloudFormation stack outputs...")
-    print()
+    # print("Step 2: Retrieving CloudFormation stack outputs...")
+    # print()
     
-    print("Retrieving vscode stack outputs...")
+    # print("Retrieving vscode stack outputs...")
     vscode_cf_output = execute_aws_command(
         "aws cloudformation describe-stacks --stack-name vscode --query 'Stacks[0].Outputs'"
     )
     
-    if vscode_cf_output:
-        print("VSCode Stack Outputs:")
-        print(json.dumps(vscode_cf_output, indent=2))
-    else:
-        print("Warning: Failed to retrieve vscode stack outputs")
-    print()
-    
-    print("Retrieving faa-infrastructure-studio stack outputs...")
+    # print("Retrieving faa-infrastructure-studio stack outputs...")
     studio_cf_output = execute_aws_command(
         "aws cloudformation describe-stacks --stack-name faa-infrastructure-studio --query 'Stacks[0].Outputs'"
     )
     
-    if studio_cf_output:
-        print("FAA Infrastructure Studio Stack Outputs:")
-        print(json.dumps(studio_cf_output, indent=2))
-    else:
-        print("Warning: Failed to retrieve faa-infrastructure-studio stack outputs")
-    print()
-    
+
     # Extract values from CloudFormation outputs
-    print("Step 3: Extracting configuration values...")
+    # print("Step 3: Extracting configuration values...")
     
     solace_ec2_endpoint = None
     documentDB_host = None
@@ -215,39 +193,39 @@ def main():
             # Remove port if present
             if ':' in solace_ec2_endpoint:
                 solace_ec2_endpoint = solace_ec2_endpoint.split(':')[0]
-            print(f"  Solace EC2 Endpoint: {solace_ec2_endpoint}")
+            # print(f"  Solace EC2 Endpoint: {solace_ec2_endpoint}")
         
         # Extract DocumentDB endpoint
         documentDB_host = extract_value_from_outputs(studio_cf_output, 'DocumentDBEndpoint')
-        if documentDB_host:
-            print(f"  DocumentDB Host: {documentDB_host}")
+        # if documentDB_host:
+            # print(f"  DocumentDB Host: {documentDB_host}")
         
         # Extract Qdrant URL
         qdrant_url = extract_value_from_outputs(studio_cf_output, 'VectorDBEndpoint')
-        if qdrant_url:
-            print(f"  Qdrant URL: {qdrant_url}")
+        # if qdrant_url:
+        #     print(f"  Qdrant URL: {qdrant_url}")
         
         # Extract Qdrant API Key
         api_key = extract_value_from_outputs(studio_cf_output, 'VectorDBKey')
-        if api_key:
-            print(f"  Qdrant API Key: {api_key[:20]}...")
-    print()
+    #     if api_key:
+    #         print(f"  Qdrant API Key: {api_key[:20]}...")
+    # print()
     
     # Write .env file with extracted values
-    print("Step 4: Writing .env file...")
+    # print("Step 4: Writing .env file...")
     if not write_env_file(solace_ec2_endpoint, documentDB_host, qdrant_url, api_key, aws_account_id):
         print("Failed to write .env file. Exiting.")
         sys.exit(1)
-    print()
+    # print()
     
     # Summary
-    print("=" * 60)
-    print("Summary:")
-    print("=" * 60)
-    print(f".env file created: {os.path.abspath('.env')}")
-    print(f"VSCode stack outputs retrieved: {'Yes' if vscode_cf_output else 'No'}")
-    print(f"Studio stack outputs retrieved: {'Yes' if studio_cf_output else 'No'}")
-    print()
+    # print("=" * 60)
+    # print("Summary:")
+    # print("=" * 60)
+    # print(f".env file created: {os.path.abspath('.env')}")
+    # print(f"VSCode stack outputs retrieved: {'Yes' if vscode_cf_output else 'No'}")
+    # print(f"Studio stack outputs retrieved: {'Yes' if studio_cf_output else 'No'}")
+    # print()
     if solace_ec2_endpoint and documentDB_host and qdrant_url and api_key and aws_account_id:
         print("✓ All configuration values successfully extracted and populated")
     else:

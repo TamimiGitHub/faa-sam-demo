@@ -39,6 +39,7 @@ In this exercise, you'll set up a Retrieval Augmented Generation (RAG) agent tha
 ### Step 1: Add the RAG Plugin
 
 1. Open a new terminal session
+
    ![New Terminal](img/new-terminal.png)
 
 1. Navigate to the `sam` directory and activate the python virtual environment

@@ -242,6 +242,7 @@ Now lets pre-populate the solace agent mesh instance with prompts:
    ```
    python3 util/populate_prompts.py --file util/faa_prompts.json
    ```
+1. Navigate to the `Prompts` tab from your Solace Agent Mesh and observe the new prompts that got added
 
 ## Next Steps
 Now you can follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)

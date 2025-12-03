@@ -327,6 +327,7 @@ sam run configs/agents/faa-docs-agent.yaml
   ![Agent Tab](img/refresh_agents.png)
 
 1. See the the newly added SOPs agent
+
   ![SOP Agent](img/sop_agent.png)
 
 ## Exercise: Analyzing System Documentation

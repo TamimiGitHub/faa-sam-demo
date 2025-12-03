@@ -2,7 +2,6 @@
 
 ## Table of Contents
 - [1. Access the VSCode instance](#1-skip-if-in-aws-event-access-the-vscode-instance)
-- [2. Installing helper extension in VsCode](#2-installing-helper-extension-in-vscode)
 - [3. Installing Solace Agent Mesh](#3-installing-solace-agent-mesh)
 - [4. Configuring Solace Agent Mesh](#4-configuring-solace-agent-mesh)
 - [5. Adding prompts to SAM](#5-adding-prompts-to-sam)
@@ -31,35 +30,7 @@
 
 > Note: At any point during the workshop, if you kill your terminal window and want to bring it up again click `CMD+SHIT+P` to bring up the command pallet and type in `toggle terminal`
 
-## 2. Installing helper extension in VsCode
-
-To enhance the workshop experience, we recommend installing the Paste and Indent by Rubymaniac. To do so: 
-
-1. Navigate to the extensions tab in your Vscode editor
-
-   ![vscode extension](./img/vscode_extension.png)
-
-1. Type `Paste and Indent Rubymaniac` in the search dialog and install the extension
-
-   ![vscode extension install](./img/vscode_exntesion_install.png)
-
-1. Bring up the extensions pallet by typing `CMD+SHIFT+P` and type `paste-indent` and click the cog icon next to the extension name
-
-   ![vscode extension install](./img/vscode_paste_indent.png)
-
-1. Update the keybinding for the extension to override the regular paste shortcut
-
-   ![vscode extension install](./img/vscode_keybinding.png)
-
-1. When the key binding dialog comes up, type the following on your keyboard `CMD+SHIFT+V` and hit enter
-
-1. You should now see the new keybinding
-
-   ![vscode extension install](./img/vscode_keybinding2.png)
-
-   > Tip: When copying any yaml content, make sure you paste it in the right location using your shortcut `CMD+SHIFT+V` to make sure indentation is respected. It will save alot of hassle! 
-
-## 3. Installing Solace Agent Mesh
+## 2. Installing Solace Agent Mesh
 
 1. Navigate to the sam directory and create a virtual environment
    ```
@@ -96,7 +67,7 @@ After initializing sam, you should now see a
    5 directories, 6 files
    ```
 
-## 4. Configuring Solace Agent Mesh
+## 3. Configuring Solace Agent Mesh
 
 1. Replace everything in the `.env` with the following content
    ```
@@ -160,7 +131,7 @@ After initializing sam, you should now see a
 
 1. Save the `.env` file
 
-1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content. If you [installed the helper extension in VsCode](#2-installing-helper-extension-in-vscode), you can simply copy the content below and paste it in the right location via `CMD+SHIFT+V`
+1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content.
 
    ```
    planning: &planning_model
@@ -311,7 +282,7 @@ Your shared_config.yaml file should look like this
    >
    >   ![Workflow](./img/agernt_workflow.png)
       
-## 5. Adding prompts to SAM
+## 4. Adding prompts to SAM
 Now lets pre-populate the solace agent mesh instance with prompts:
 
 1. open a new terminal

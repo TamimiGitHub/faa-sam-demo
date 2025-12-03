@@ -31,6 +31,8 @@ Every day, aviation professionals face a common hurdle: while they're experts in
 ### Your Task: "Chat with your Data"
 You'll build an intelligent system that lets aviation professionals simply ask questions in plain English and get instant, accurate answers from real-time flight data. No more digging through complex databases or decoding technical data structures!
 
+You will be using the ⭐️ [Solace Agent Mesh](https://github.com/SolaceLabs/solace-agent-mesh) framework to do so. 
+
 ### The Technical Landscape
 - The FAA's real-time flight information flows through a sophisticated publish/subscribe messaging system, powered by the Solace Event Mesh
 - This system lets users tap into exactly the data streams they need, creating an efficient, dynamic flow of information

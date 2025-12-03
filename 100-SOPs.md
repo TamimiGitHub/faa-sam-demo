@@ -57,7 +57,7 @@ sam plugin add faa-docs-agent --plugin sam-rag
 
 ### Step 2: Configure the RAG Agent
 
-1. Open the new file that was generated at [configs/agents/faa-docs-agent.yaml](./sam/configs/agents/faa-docs-agent.yaml). Your final Agent yaml configuration should look like this
+1. Open the new file that was generated at [configs/agents/faa-docs-agent.yaml](./sam/configs/agents/faa-docs-agent.yaml) and replace the content with the following:
 
 ```
 # This is a configuration template for the SAM RAG Agent Plugin.

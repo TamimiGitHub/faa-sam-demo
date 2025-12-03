@@ -338,9 +338,9 @@ The RAG agent has two main functionalities
 
 1. **Ingesting documents**: This is done in one of two ways:
   
-    1. Directory Upload: Add files in the configured the directory path in the <agent_name>.yaml file and the agent ingests documents in background automatically.
+    1. Directory Upload: Add files in the configured the directory `DOCUMENTS_PATH` in the <agent_name>.yaml file and the agent ingests documents in background automatically. This is found under `agent_init_function.config.scanner.sources`
 
-    1. Solace Agent Mesh UI on the browser (by default http://localhost:8000), attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
+    1. Solace Agent Mesh UI on the browser, attach files to a query such as "ingest the attached document to RAG". This query persistently stores the attachments in file system and index them in vector database.
 
 1. **Retrieving documents**: Sending prompts using a Solace Agent Mesh Gateway (e.g. WebUI) "search documents about and return a summary and referenced documents". It retrieves top similar documents and returns a summary of documents align with their original documents.
 

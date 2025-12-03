@@ -123,8 +123,7 @@ QDRANT_URL="{qdrant_endpoint}:6333"
 QDRANT_API_KEY="{qdrant_api_key}"
 QDRANT_COLLECTION="SOP-{account_id}"
 QDRANT_EMBEDDING_DIMENSION=1024
-OPENAI_EMBEDDING_MODEL="text-embedding-ada-002"
-DOCUMENTS_PATH="sop"
+DOCUMENTS_PATH="faa_documents"
 
 ## AWS Bedrock Configuration
 AWS_ACCESS_KEY_ID="<insert_here>"

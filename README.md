@@ -66,14 +66,13 @@ Ready for takeoff? Let's transform how aviation professionals interact with thei
 
 ## Prerequisites
 
-- Command-line knowledge
 - Make sure you have the latest instructions by typing `git pull` from your terminal
-- Python 3.10+
+- Command-line knowledge
 - AWS account. If you are attending this event in person, the necessary plumbing is already configured for you
 - Your curiosity!
 
 ## Environment Setup
-To setup your AWS Environment, please follow the steps in the [Environment Setup](010-Env-Setup.md) document. And then follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)
+To setup your workspace environment, please follow the steps in the [Environment Setup](010-Env-Setup.md) document, and then follow the workshop parts in order.
 
 ## Workshop Structure
 
@@ -104,7 +103,7 @@ If you need assistance during the workshop:
 
 ## [Skip if running in an AWS event] Note on AWS Environment Setup. 
 
-This workshop requires several AWS resources that are provisioned through CloudFormation templates found in the `cloudformations` directory. The template sets up:
+This workshop requires several AWS resources that are provisioned through CloudFormation templates found in the [cloudformations](./cloudformations/) directory. The template sets up:
 
 1. **EC2 Instances**:
    - Software Solace broker for event streaming

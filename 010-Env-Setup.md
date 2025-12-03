@@ -101,8 +101,11 @@ After initializing sam, you should now see a
    ```
    python3 ../util/populate_env.py
    ```
+1. Open the root section from your workshop link to get the event output
 
-1. Open your .env file and confirm the following variables:
+   ![Workshop Root](./img/workshop-main.png)
+
+1. In your .env file and confirm the following variables:
    - `SOLACE_BROKER_URL` - Get the url from the cloud formation output. NOTE: Make sure to remote the `https://` and the port `:8080` from the url
       
       ![URL](img/url_broker_copy.png)

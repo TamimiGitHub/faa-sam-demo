@@ -118,7 +118,7 @@ After initializing sam, you should now see a
 
 1. Save the `.env` file
 
-1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) to use your bedrock hosted LLM at `configs/shared_config.yaml`. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content.
+1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) in `configs/shared_config.yaml` to use your bedrock hosted LLM. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content.
 
    ```yaml
    planning: &planning_model

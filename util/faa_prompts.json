@@ -103,5 +103,12 @@
     "category": "Standard Operation Procedure Analysis",
     "command": "sop-analyses",
     "initial_prompt": "Tell me what types of outcomes I could expect by analyzing data from these systems."
+  },
+  {
+    "name": "301 - FDPS overview",
+    "description": "Overview to number of documents and types of data in FDPS database",
+    "category": "FDPS",
+    "command": "fdps-overview",
+    "initial_prompt": "How many FDPS documents are in the database and what types of data do they contain?"
   }
 ]

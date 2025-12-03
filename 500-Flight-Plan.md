@@ -14,6 +14,7 @@ Flight plans contain:
 ## Step 1: Create the Flight Plan DocumentDB Agent
 
 1. Open a new terminal session
+
    ![New Terminal](img/new-terminal.png)
 
 1. Navigate to the `sam` directory and activate the python virtual environment

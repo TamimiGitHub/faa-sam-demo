@@ -28,7 +28,7 @@ Now that you understand the data layer, it's time to build agent that will conne
    source .venv/bin/activate
    ```
 
-1. Run the following command to add the RAG plugin:
+1. Run the following command to add the mongoDB plugin:
 
    ```sh
    sam plugin add flight-db --plugin sam-mongodb
@@ -217,7 +217,7 @@ Now that you understand the data layer, it's time to build agent that will conne
    source .venv/bin/activate
    ```
 
-1. Run the following command to add the RAG plugin:
+1. Run the following command to add the mongoDB plugin:
 
    ```sh
    sam plugin add sttds-db --plugin sam-mongodb

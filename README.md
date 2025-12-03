@@ -59,7 +59,7 @@ By the end of this workshop, you will have built a multi-agent system that can:
 
 ### Resources
 - AWS resources: EC2 Instances, DocumentDB, Bedrock LLM, AgentCore
-- Agentic Frameworks: MCP, A2A, Strands, Solace Agent Mesh
+- Agentic Frameworks: MCP, A2A, Solace Agent Mesh
 - Solace Platform: Event Broker
 
 Ready for takeoff? Let's transform how aviation professionals interact with their data! ✈️

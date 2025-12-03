@@ -33,7 +33,7 @@ Now that you understand the data layer, it's time to build agent that will conne
    ```sh
    sam plugin add flight-db --plugin sam-mongodb
    ```
-   Note: observe the newly created `flight-db.yaml` file under [configs/agents](./sam/configs/agents)
+   Note: observe the newly created `flight-db.yaml` file under [configs/agents/flight-db.yaml](./sam/configs/agents/flight-db.yaml)
 
 1. Open the newly created file and update it:
 
@@ -222,7 +222,7 @@ Now that you understand the data layer, it's time to build agent that will conne
    ```sh
    sam plugin add sttds-db --plugin sam-mongodb
    ```
-   Note: observe the newly created `sttds-db.yaml` file under `configs/agents`
+   Note: observe the newly created `sttds-db.yaml` file under [configs/agents/sttds-db.yaml](./sam/configs/agents/sttds-db.yaml)
 
 1. Open the newly created file and paste the following content
    ```yaml
@@ -339,7 +339,7 @@ Now that you understand the data layer, it's time to build agent that will conne
            request_timeout_seconds: 30
    ```
 
-1. Update the `.env` file to have the following vars
+1. Confirm the `.env` file has the following vars
    ```
    ## STDDS Position Collection
    SAM_DOCUMENTDB_STDDS_COLLECTION="STDDSPosition"

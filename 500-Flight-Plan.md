@@ -288,7 +288,7 @@ Flight plans contain:
            allow_list: []
            request_timeout_seconds: 30
    ```
-1. Update your `.env` to add the following env vars
+1. Confirm your `.env` has the following env vars
       ```
       ## Flight Plan Collection
       SAM_DOCUMENTDB_FLIGHTPLAN_COLLECTION="FDPSFlightPlan"

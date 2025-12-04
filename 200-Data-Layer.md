@@ -12,7 +12,7 @@
 
 ## Understanding Your Workshop Environment
 
-Your workshop environment includes a pre-configured DocumentDB instance that serves as the data layer for this exercise. This instance contains the primary collections that store real-time flight data.
+Your workshop environment includes a pre-configured DocumentDB instance that serves as the data layer for this exercise. This instance contains the primary collections that store real-time flight data on an 8-hour flush configuration
 
 ## Collection Overview
 

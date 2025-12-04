@@ -41,7 +41,7 @@
     "command": "FPDS-describe-flight",
     "initial_prompt": "Tell me about {{flight number}}"
   },
-    {
+  {
     "name": "401 - Planes on the ground",
     "description": "Provides a report of planes that are on the ground taxiing",
     "category": "STDDS",
@@ -55,7 +55,35 @@
     "command": "check-schedule-compliance",
     "initial_prompt": "Which flights are currently delayed arriving into {{airport}}?"
   },
-    {
+  {
+    "name": "403 - Flight Details from STDDS",
+    "description": "STDDS Flight Details for a specific flight",
+    "category": "Advanced Analysis",
+    "command": "flight-status-stds",
+    "initial_prompt": "Tell me what you know about {{Flight_Number}} from STDDS"
+  },
+  {
+    "name": "404 - Flight Details from FDPS",
+    "description": "FDPS Flight Details for a specific flight",
+    "category": "Advanced Analysis",
+    "command": "flight-status-fdps",
+    "initial_prompt": "Now tell me what you know, including all historical data, about this flight from FDPS"
+  },
+  {
+    "name": "405 - Comprehensive Flight Report",
+    "description": "Generate a combined report from both STDDS and FDPS for a specific flight",
+    "category": "Comprehensive Analysis",
+    "command": "comprehensive-flight-report",
+    "initial_prompt": "Generate me a report of both the STDDS and FDPS data for this flight."
+  },
+  {
+    "name": "406 - Updated Comprehensive Flight Report",
+    "description": "Provide an updated report including all new and historical data from both STDDS and FDPS for a specific flight",
+    "category": "Comprehensive Analysis",
+    "command": "updated-comprehensive-flight-report",
+    "initial_prompt": "Provide me an updated report, including all new and historical data from both STDDS and FDPS for this flight."
+  },
+  {
     "name": "501 - Basic Flight Plan Access Test",
     "description": "Verify connection and retrieve sample flight plan documents",
     "category": "Data Validation",

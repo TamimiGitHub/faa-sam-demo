@@ -220,9 +220,9 @@ Now that you understand the data layer, it's time to build agent that will conne
 1. Run the following command to add the mongoDB plugin:
 
    ```sh
-   sam plugin add sttds-db --plugin sam-mongodb
+   sam plugin add stdds-db --plugin sam-mongodb
    ```
-   Note: observe the newly created `sttds-db.yaml` file under [configs/agents/sttds-db.yaml](./sam/configs/agents/sttds-db.yaml)
+   Note: observe the newly created `stdds-db.yaml` file under [configs/agents/stdds-db.yaml](./sam/configs/agents/stdds-db.yaml)
 
 1. Open the newly created file and paste the following content
    ```yaml
@@ -349,7 +349,7 @@ Now that you understand the data layer, it's time to build agent that will conne
 
 1. Save the fle and run it
    ``` 
-   sam run configs/agents/sttds-db.yaml
+   sam run configs/agents/stdds-db.yaml
    ```
 
 1. Navigate back to the SAM WebUI instance and observe the new agent
@@ -386,7 +386,7 @@ The agent should return a JSON document showing the structure of FDPS data, incl
 Run the following prompt:
 
 ```
-Get me an example STTDS document
+Get me an example STDDS document
 ```
 
 **Expected Response:**

@@ -17,6 +17,13 @@
 
 ---
 
+## Agentic Use-cases 
+
+![Use-cases](./img/agentic_use_cases.png)
+
+![Use-cases](./img/agentic_use_cases2.png)
+
+
 ## What is Solace Agent Mesh?
 
 Solace Agent Mesh is an open-source, event-driven framework that creates a distributed ecosystem of collaborative AI agents. 

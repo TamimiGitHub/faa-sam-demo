@@ -119,7 +119,7 @@ Congratulations! In this workshop, you have:
 
 3. **Integrated RAG-based summarization**: You used RAG to analyze technical documentation, extracting relevant information without reading hundreds of pages
 
-4. **Automated event-driven reporting**: You configured the Event Gateway to trigger agentic stimuli automatically in response to real-time events, demonstrating the power of event-driven Agentic AI
+4. **Automated event-driven reporting**: You configured the Event Gateway to trigger Agentic stimuli automatically in response to real-time events, demonstrating the power of event-driven Agentic AI
 
 ### Key Concepts Reviewed
 

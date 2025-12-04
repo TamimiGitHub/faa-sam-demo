@@ -205,6 +205,8 @@ Throughout your interactions:
 - **Parallel Operations**: Multiple agents could run simultaneously
 - **Fault Tolerance**: If an agent restarted, the mesh continued functioning
 - **Dynamic Discovery**: New agents appeared automatically in the UI
+- **Cloud Agnostic**: Having a messaging backbone for communication enables cross cloud communication between agents
+- **Cross Region**: Deploying the message broker across different regions enables cross region Agentic workflow
 
 ---
 

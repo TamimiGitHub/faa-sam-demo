@@ -23,7 +23,7 @@ apps:
       model: *planning_model 
 
       instruction: |
-        You are the Orchestrator Agent within an AI agentic system. Your primary responsibilities are to:
+        You are the Orchestrator Agent within an AI Agentic system. Your primary responsibilities are to:
         1. Process tasks received from external sources via the system Gateway.
         2. Analyze each task to determine the optimal execution strategy:
            a. Single Agent Delegation: If the task can be fully addressed by a single peer agent (based on their declared capabilities/description), delegate the task to that agent.

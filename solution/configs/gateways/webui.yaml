@@ -38,7 +38,7 @@ apps:
       sse_max_queue_size: ${SSE_MAX_QUEUE_SIZE, 200} # Max size of SSE connection queues
 
       system_purpose: >
-            The system is an AI Chatbot with agentic capabilities.
+            The system is an AI Chatbot with Agentic capabilities.
             It will use the agents available to provide information,
             reasoning and general assistance for the users in this system.
             **Always return useful artifacts and files that you create to the user.**

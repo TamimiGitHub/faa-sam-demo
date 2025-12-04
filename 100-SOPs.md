@@ -286,7 +286,7 @@ DOCUMENTS_PATH="faa_documents"
 BEDROCK_EMBEDDING_MODEL_NAME="bedrock/amazon.titan-embed-text-v2:0"
 ```
 
-> Note: please refer to the cloudformation output for `VectorDBEndpoint` and `VectorDBKey`. Note the `QDRANT_COLLECTION` has to be updated with a unique name
+> Note: please refer to the Event Output for `VectorDBEndpoint` and `VectorDBKey`. Note the `QDRANT_COLLECTION` has to be updated with a unique name
 
 ### Step 4: Create Document Directory
 

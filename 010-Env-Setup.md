@@ -69,33 +69,7 @@ After initializing sam, you should now see a
 
 ## 3. Configuring Solace Agent Mesh
 
-1. Replace everything in the `.env` with the following content
-   ```
-   NAMESPACE="faa/"
-   SOLACE_BROKER_URL="ws://<solace_ec2_endpoint>:8008" # e.g. ws://ec2-35-90-45-100.us-west-2.compute.amazonaws.com:8008
-   SOLACE_BROKER_VPN="default"
-   SOLACE_BROKER_USERNAME="default"
-   SOLACE_BROKER_PASSWORD="default"
-   SOLACE_DEV_MODE="false"
-   SESSION_SECRET_KEY="supersecretpassword"
-   FASTAPI_HOST="0.0.0.0"
-   FASTAPI_PORT="8000"
-   FASTAPI_HTTPS_PORT="8443"
-   SSL_KEYFILE=""
-   SSL_CERTFILE=""
-   SSL_KEYFILE_PASSWORD=""
-   ENABLE_EMBED_RESOLUTION="True"
-   S3_BUCKET_NAME=""
-   S3_ENDPOINT_URL=""
-   S3_REGION="us-west-2"
-
-   ## AWS Bedrock Configuration
-   AWS_ACCESS_KEY_ID="<insert_here>"
-   AWS_SECRET_ACCESS_KEY="<insert_here>"
-   AWS_SESSION_TOKEN="<insert_here>"
-   BEDROCK_MODEL_NAME="bedrock/anthropic.claude-sonnet-4-20250514-v1:0"
-   BEDROCK_MODEL_ID="<model_arn>" # e.g. arn:aws:bedrock:us-west-2:{AWS_ACCOUNT_ID}:inference-profile/global.anthropic.claude-sonnet-4-20250514-v1:0 
-   ```
+1. Open your `.env` file and check the content. Note this is auto generated and we will add our environment variables throughout the workshop here
 
 1. Run the populate environment variables script as follows 
    ```
@@ -105,10 +79,7 @@ After initializing sam, you should now see a
 
    ![Workshop Root](./img/workshop-main.png)
 
-1. In your .env file and confirm the following variables:
-   - `SOLACE_BROKER_URL` - Get the url from the cloud formation output. NOTE: Make sure to remote the `https://` and the port `:8080` from the url
-      
-      ![URL](img/url_broker_copy.png)
+1. Add values to the following to your `.env` file
 
    - `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN` 
 
@@ -118,7 +89,7 @@ After initializing sam, you should now see a
 
 1. Save the `.env` file
 
-1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) in `configs/shared_config.yaml` to use your bedrock hosted LLM. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content.
+1. Now update the model in the [shared configuration file](./sam/configs/shared_config.yaml) in `configs/shared_config.yaml` to use your bedrock hosted LLM. Replace your `planning` and `general` models with the following. IMPORTANT NOTE: make sure you have the correct YAML indentation if you copy paste the following content, or simply copy the content of the full file
 
    ```yaml
    planning: &planning_model
@@ -210,11 +181,11 @@ Your shared_config.yaml file should look like this
    ```
 1. From terminal, run sam `sam run`
    
-1. Navigate to the sam web UI. Note you can get the URL from the cloudformation output
+1. Navigate to the sam web UI. Note you can get the URL from the Event Output
 
    ![SAM Web URL](./img/sam_web_url.png)
 
-   Note: Make sure you access the web UI on port 8000 `http://${SAMWebUIEndPoint}:8000`
+   Note: Make sure you access the web UI on port 8000 `http://${host_endpoint}:8000`
 
 1. You can now interact with the Solace Agent Mesh WebUI
 
@@ -243,6 +214,8 @@ Now lets pre-populate the solace agent mesh instance with prompts:
    python3 util/populate_prompts.py --file util/faa_prompts.json
    ```
 1. Navigate to the `Prompts` tab from your Solace Agent Mesh and observe the new prompts that got added
+
+   ![Prompts List](./img/prompts_list.png)
 
 ## Next Steps
 Now you can follow the workshop parts in order, starting with [Standard Operating Procedures](100-SOPs.md)

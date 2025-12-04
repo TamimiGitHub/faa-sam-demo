@@ -1,107 +1,94 @@
 # Asking Questions in Natural Language
 
 ## Table of Contents
-- [Exercise: Querying Inbound Flights](#exercise-querying-inbound-flights)
-  - [Query for LAS Arrivals](#query-for-las-arrivals)
-  - [Understanding the Response](#understanding-the-response)
-- [Exercise: Querying Ground Operations](#exercise-querying-ground-operations)
-  - [Query for Ground Traffic](#query-for-ground-traffic)
-  - [Understanding the Response](#understanding-the-response-1)
+- [Overview](#overview)
+- [Using Stored Prompts](#using-stored-prompts)
+- [Available Prompts for Las Vegas (KLAS)](#available-prompts-for-las-vegas-klas)
+  - [Planes on the Ground](#planes-on-the-ground)
+  - [Schedule Compliance Check](#schedule-compliance-check)
+  - [Flight Details from STDDS](#flight-details-from-stdds)
+  - [Flight Details from FDPS](#flight-details-from-fdps)
+  - [Comprehensive Flight Report](#comprehensive-flight-report)
+  - [Updated Comprehensive Flight Report](#updated-comprehensive-flight-report)
 - [Extracting Operational Insights](#extracting-operational-insights)
-- [Advanced Queries](#advanced-queries)
 - [Next Steps](#next-steps)
+
+## Overview
 
 Now that your agents are connected and tested, you can begin querying the data using natural language. Agent Mesh will interpret your questions, determine which agent(s) to consult, construct appropriate database queries, and present the results in a user-friendly format.
 
-## Exercise: Querying Inbound Flights
+In this section, we will perform **natural language analysis** on two key data types:
+- **Surface-level operations** - Analyzing aircraft movements on the ground, taxiing, and ground operations at the airport
+- **In-flight real-time data** - Monitoring aircraft in flight, including positions, altitudes, speeds, and flight status
 
-### Query for LAS Arrivals
+> Note: For this workshop, we will be working exclusively with **Las Vegas Harry Reid International Airport (KLAS)**.
 
-In the Agent Mesh interface, enter the following prompt:
+## Using Stored Prompts
 
-```
-Provide me a summary of flights inbound into LAS.
-```
+If you recall earlier, we imported a list of prompts. You can access these prompts by typing a slash followed by the prompt number and name in the chat interface. For example, typing `/401 - Planes on the ground` will load the "Planes on the Ground" prompt. Note that some prompts have variables that you will need to input before sending in the prompt. 
 
-_Note: LAS is the IATA airport code for Las Vegas Harry Reid International Airport_
+Each stored prompt is designed for specific analytical tasks and will automatically populate the chat with the appropriate query.
 
-### Understanding the Response
+Lets go ahead and choose a flight for our analysis
 
-Agent Mesh will:
-1. Identify that this query requires FDPS data (flight positions and routes)
-2. Route the request to the FDPS Agent
-3. Construct a database query to find aircraft with destination LAS
-4. Filter for inbound flights (flights currently en route, not yet landed)
-5. Aggregate and summarize the results
-6. Present a human-readable summary
+![flightradar](./img/flight_radar.png)
 
-**Expected Summary Elements:**
-- Number of inbound flights
-- Flight identifiers and airlines
-- Current positions and estimated times of arrival
-- Altitude and speed information
-- Origin airports
+> Note: start from `/403` for time constraints
 
-## Exercise: Querying Ground Operations
+## Available Prompts for Las Vegas (KLAS)
 
-### Query for Ground Traffic
+The following prompts are available for analyzing operations at Las Vegas airport (KLAS):
 
-Enter the following prompt:
+### Planes on the Ground
 
-```
-Provide me a summary of flights on the ground and taxiing in LAS.
-```
+**Description:** Provides a report of planes that are on the ground taxiing at KLAS.
 
-### Understanding the Response
+**Usage:** Type `/401 - Planes on the ground` in the chat prompt
 
-Agent Mesh will:
-1. Recognize this requires STDDS data (surface movements)
-2. Route the request to the STDDS Agent
-3. Query for aircraft at LAS with ground/taxiing status
-4. Summarize surface operations
+### Schedule Compliance Check
 
-**Expected Summary Elements:**
-- Number of aircraft on the ground
-- Aircraft currently taxiing vs. parked
-- Taxiway and runway occupancy
-- Departure vs. arrival operations
-- Ground movement patterns
+**Description:** Find flights behind estimated arrival times at KLAS.
+
+**Usage:** Type `/402 - Schedule Compliance Check` in the chat prompt
+
+
+### Flight Details from STDDS
+
+**Description:** STDDS Flight Details for a specific flight at KLAS.
+
+**Usage:** Type `/403 - Flight Details from STDDS` in the chat prompt, then provide the flight number when prompted
+
+
+### Flight Details from FDPS
+
+**Description:** FDPS Flight Details for a specific flight, including historical data.
+
+**Usage:** Type `/404 - Flight Details from FDPS` in the chat prompt, then provide the flight number when prompted
+
+
+### Comprehensive Flight Report
+
+**Description:** Generate a combined report from both STDDS and FDPS for a specific flight.
+
+**Usage:** Type `/405 - Comprehensive Flight Report` in the chat prompt, then provide the flight number when prompted
+
+
+### Updated Comprehensive Flight Report
+
+**Description:** Provide an updated report including all new and historical data from both STDDS and FDPS.
+
+**Usage:** Type `/406 - Updated Comprehensive Flight Report` in the chat prompt, then provide the flight number when prompted
 
 ## Extracting Operational Insights
 
-The natural language interface enables non-technical users to:
-- Monitor airport congestion in real-time
+The natural language interface with stored prompts enables non-technical users to:
+- Monitor airport congestion in real-time at KLAS
 - Identify potential bottlenecks in ground operations
-- Track inbound traffic for resource planning
+- Track flight status and delays efficiently
 - Generate operational reports without writing SQL or code
+- Access standardized queries for consistent analysis
 
-Try experimenting with your own queries to explore different aspects of the data, such as specific airlines, aircraft types, or time-based patterns.
-
-## Advanced Queries
-
-As you become more familiar with the data, try some more complex queries:
-
-1. Compare inbound traffic volumes between two different airports:
-   ```
-   Compare the number of inbound flights to LAS and SFO in the next 2 hours.
-   ```
-
-2. Analyze ground congestion across multiple airports:
-   ```
-   Which of the top 5 busiest US airports currently has the most aircraft taxiing?
-   ```
-
-3. Investigate potential delays:
-   ```
-   Are there any inbound flights to JFK that are more than 30 minutes behind their scheduled arrival time?
-   ```
-
-4. Examine airspace utilization:
-   ```
-   What's the average altitude of flights currently over Colorado?
-   ```
-
-Remember, the power of natural language querying lies in its flexibility. Feel free to ask questions as you would to a human expert, and Agent Mesh will work to interpret and answer them using the available data.
+By using the stored prompts (e.g., `/401 - Planes on the ground`, `/402 - Schedule Compliance Check`), you ensure consistent query formatting and can quickly access common analytical tasks for Las Vegas airport operations.
 
 ## Next Steps
 

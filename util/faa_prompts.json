@@ -103,5 +103,12 @@
     "category": "Analysis",
     "command": "analyze-flight-adherence",
     "initial_prompt": "How well has flight {{Flight ID}} adhered to its flight plan?"
+  },
+  {
+    "name": "502 - Comprehensive Flight Performance Report",
+    "description": "Generate a detailed HTML report on flight performance metrics",
+    "category": "Comprehensive Analysis",
+    "command": "flight-performance-report",
+    "initial_prompt": "Generate me a html report containing a summary of the performance of AAL1584. Take into account its filed flight plans, how those plans changed overtime, its enroute performance and its surface movements and performance. Provide key insights and look for delays in taxi time and excessive taxi waits. Make sure to call as many agents in parallel as you want"
   }
 ]

@@ -14,7 +14,8 @@
 4. [Exercise: Analyzing System Documentation](#exercise-analyzing-system-documentation)
    - [Step 1: Upload CONOPS Documents](#step-1-upload-conops-documents)
    - [Step 2: Query the RAG Agent](#step-2-query-the-rag-agent)
-5. [Next Steps](#next-steps) The Data Streams - FDPS, STDDS, and RAG
+   - [Using the prepopulated prompts, follow the next steps](#using-the-prepopulated-prompts-follow-the-next-steps)
+5. [Next Steps](#next-steps)
 
 ## Introduction to FAA Systems
 
@@ -273,7 +274,7 @@ apps:
 ```
 ### Step 3: Set Up Environment Variables
 
-Confirm your `.env` file has the correct values for the following:
+Your `.env` file should already have the values populated for the following:
 
 ```
 ## Qdrant Configuration
@@ -286,7 +287,7 @@ DOCUMENTS_PATH="faa_documents"
 BEDROCK_EMBEDDING_MODEL_NAME="bedrock/amazon.titan-embed-text-v2:0"
 ```
 
-> Note: please refer to the Event Output for `VectorDBEndpoint` and `VectorDBKey`. Note the `QDRANT_COLLECTION` has to be updated with a unique name
+> Note: please refer to the Event Output for `VectorDBEndpoint` and `VectorDBKey`.
 
 ### Step 4: Create Document Directory
 
@@ -374,13 +375,13 @@ Tell me about the FDPS and STDDS systems and data.
 
 Wait for the response and review the summary.
 
-Using the prepopulated prompts, follow the next steps
+### Using the prepopulated prompts, follow the next steps
 
 1. From the chat interface, type `/` to insert a prompt
 
   ![prompt insert](img/prompt_insert.png)
 
-1. Type in `sop-`
+1. Type in `102`
 
   ![prompt insert](img/sop_prompt.png)
 
@@ -391,6 +392,8 @@ Using the prepopulated prompts, follow the next steps
 1. Execute the prompt
 
   ![prompt insert](img/prompt_analyses.png)
+
+> For the remaining of the workshop, every section will have its dedicated list of prompts that can be retrieved by typing `/<section_number>` in the chat prompt
 
 The RAG agent will provide:
 - High-level overviews of each system's purpose and functionality

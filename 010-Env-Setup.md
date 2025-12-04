@@ -213,6 +213,9 @@ Now lets pre-populate the solace agent mesh instance with prompts:
    ```
    python3 util/populate_prompts.py --file util/faa_prompts.json
    ```
+
+   > Note: You can delete all the prompts by executing `python3 util/populate_prompts.py --delete-all`
+   
 1. Navigate to the `Prompts` tab from your Solace Agent Mesh and observe the new prompts that got added
 
    ![Prompts List](./img/prompts_list.png)

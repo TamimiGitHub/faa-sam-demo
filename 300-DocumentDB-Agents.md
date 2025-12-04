@@ -363,9 +363,11 @@ Now that you understand the data layer, it's time to build agent that will conne
 
   ![Agents](img/agents_stdds_fdps.png)
 
-### Test the FDPS Agent
+### Natural language testing
 
-In the Agent Mesh chat interface, run the following prompt:
+Now that both your agents are up and running, we can go ahead and interact with the agents. In the Agent Mesh chat interface, run the saved prompts related to these agents by typing `/30` in the chat prompt to bring up the list of presaved prompts. 
+
+For example, with the following prompts: 
 
 ```
 Get me an example FDPS document
@@ -380,32 +382,6 @@ The agent should return a JSON document showing the structure of FDPS data, incl
 - Flight plan information
 - Status indicators
 - Timestamp
-
-### Test the STDDS Agent
-
-Run the following prompt:
-
-```
-Get me an example STDDS document
-```
-
-**Expected Response:**
-
-The agent should return a JSON document showing the structure of STDDS data, including fields such as:
-- Aircraft identifier
-- Ground position coordinates
-- Surface location (runway, taxiway, ramp)
-- Ground speed and direction
-- Surface status
-- Timestamp
-
-### Review the Data Structures
-
-Examine the returned documents carefully to understand:
-- Available fields and their data types
-- Field naming conventions
-- Data formats (especially for timestamps and coordinates)
-- Relationships between different fields
 
 This knowledge will be essential for formulating effective natural language queries in the next section.
 

@@ -21,8 +21,8 @@
    npm run build
    ```
 
-1. Start the server:
+1. Create ECR Repository:
 
-   ```bash
-   npm start
+   ```
+   aws ecr create-repository --repository-name mcp-server --region us-east-1
    ```

@@ -21,101 +21,59 @@
     "initial_prompt": "How many FDPS documents are in the database and what types of data do they contain?"
   },
   {
-    "name": "302 - STTDS overview",
-    "description": "Overview to number of documents and types of data in STTDS database",
-    "category": "STTDS",
-    "command": "STTDS-overview",
-    "initial_prompt": "How many STTDS documents are in the database and what types of data do they contain?"
+    "name": "302 - STDDS overview",
+    "description": "Overview to number of documents and types of data in STDDS database",
+    "category": "STDDS",
+    "command": "STDDS-overview",
+    "initial_prompt": "How many STDDS documents are in the database and what types of data do they contain?"
   },
   {
-    "name": "Airspace Utilization Query",
-    "description": "Analyzes current flight altitude data over Colorado to understand vertical airspace distribution",
-    "category": "Altitude Analysis",
-    "command": "query-airspace-utilization",
-    "initial_prompt": "What's the average altitude of flights currently over Colorado?"
+    "name": "303 - Summary of Inbound Flights",
+    "description": "Describes and lists inbound flights into an airport",
+    "category": "FDPS",
+    "command": "FPDS-inbound",
+    "initial_prompt": "Tell me about distinct  flights that are inbound to {{Airport}}"
   },
   {
-    "name": "Altitude Compliance Monitoring",
-    "description": "Identify altitude deviations from assigned flight levels",
+    "name": "304 - Flight Instance Info",
+    "description": "Describes and lists inbound flights into an airport",
+    "category": "FDPS",
+    "command": "FPDS-describe-flight",
+    "initial_prompt": "Tell me about {{flight number}}"
+  },
+    {
+    "name": "401 - Planes on the ground",
+    "description": "Provides a report of planes that are on the ground taxiing",
+    "category": "STDDS",
+    "command": "STDDS-taxiing",
+    "initial_prompt": "Provide me a summary of distinct flights on the ground and taxiing in {{airport}}."
+  },
+  {
+    "name": "402 - Schedule Compliance Check",
+    "description": "Find flights behind estimated arrival times",
     "category": "Advanced Analysis",
-    "command": "monitor-altitude-compliance",
-    "initial_prompt": "List any flights not maintaining their assigned cruise altitude within {{Altitude Tolerance}} feet."
+    "command": "check-schedule-compliance",
+    "initial_prompt": "Which flights are currently delayed arriving into {{airport}}?"
   },
-  {
-    "name": "Basic Flight Plan Access Test",
+    {
+    "name": "501 - Basic Flight Plan Access Test",
     "description": "Verify connection and retrieve sample flight plan documents",
     "category": "Data Validation",
     "command": "test-flight-plan-access",
     "initial_prompt": "Get me an example flight plan document from the database."
   },
   {
-    "name": "Busiest Airport Ground Congestion Query",
-    "description": "Identifies which of the top five busiest U.S. airports currently has the most taxiing aircraft",
-    "category": "Operational Intelligence",
-    "command": "query-congestion-comparison",
-    "initial_prompt": "Which of the top 5 busiest US airports currently has the most aircraft taxiing?"
+    "name": "502 - Altitude Compliance Monitoring",
+    "description": "Identify altitude deviations from assigned flight levels",
+    "category": "Advanced Analysis",
+    "command": "monitor-altitude-compliance",
+    "initial_prompt": "List any flights not maintaining their assigned cruise altitude within {{Altitude Tolerance}} feet."
   },
   {
-    "name": "Flight Adherence Analysis",
+    "name": "503 - Flight Adherence Analysis",
     "description": "Compare actual vs. planned flight path for specific flights",
     "category": "Analysis",
     "command": "analyze-flight-adherence",
     "initial_prompt": "How well has flight {{Flight ID}} adhered to its flight plan?"
-  },
-  {
-    "name": "Flight Delay Detection Query",
-    "description": "Investigates inbound flights to JFK airport exceeding 30-minute arrival delays",
-    "category": "Performance Monitoring",
-    "command": "query-delayed-arrivals",
-    "initial_prompt": "Are there any inbound flights to JFK that are more than 30 minutes behind their scheduled arrival time?"
-  },
-  {
-    "name": "Fuel Efficiency Comparison",
-    "description": "Evaluate actual vs. planned fuel consumption metrics",
-    "category": "Advanced Analysis",
-    "command": "compare-fuel-efficiency",
-    "initial_prompt": "Compare actual vs. planned fuel burn rates for flights between {{Origin Airport}} and {{Destination Airport}}."
-  },
-  {
-    "name": "Ground Operations Query",
-    "description": "Fetches details on aircraft currently on the ground or taxiing at Las Vegas",
-    "category": "Ground Traffic Analysis",
-    "command": "query-ground-traffic",
-    "initial_prompt": "Provide me a summary of flights on the ground and taxiing in LAS."
-  },
-  {
-    "name": "Landing Report Workflow",
-    "description": "Automated workflow for generating comprehensive landing reports when flights land",
-    "category": "Event-Driven Workflow",
-    "command": "generate-landing-report",
-    "initial_prompt": "Generate a landing report for flight {{Flight ID}} that landed at {{Airport}} at {{Timestamp}}.\nInclude route adherence, timing performance, and any significant events."
-  },
-  {
-    "name": "LAS Arrivals Query",
-    "description": "Retrieves a summary of flights currently en route to Las Vegas Harry Reid International Airport",
-    "category": "Flight Monitoring",
-    "command": "query-inbound-flights",
-    "initial_prompt": "Provide me a summary of flights inbound into LAS."
-  },
-  {
-    "name": "Multi-Airport Comparison Query",
-    "description": "Compares inbound flight volumes between two major airports within a specified timeframe",
-    "category": "Traffic Analysis",
-    "command": "compare-inbound-traffic",
-    "initial_prompt": "Compare the number of inbound flights to LAS and SFO in the next 2 hours."
-  },
-  {
-    "name": "Route Deviation Detection",
-    "description": "Identify flights exceeding lateral deviation thresholds",
-    "category": "Advanced Analysis",
-    "command": "detect-route-deviations",
-    "initial_prompt": "Show me all flights that have deviated more than {{Deviation Threshold}} nautical miles from their planned route in the last {{Time Period}}."
-  },
-  {
-    "name": "Schedule Compliance Check",
-    "description": "Find flights behind estimated arrival times",
-    "category": "Advanced Analysis",
-    "command": "check-schedule-compliance",
-    "initial_prompt": "Which flights are currently more than {{Delay Threshold}} minutes behind their planned schedule?"
   }
 ]

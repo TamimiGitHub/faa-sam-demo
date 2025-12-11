@@ -405,7 +405,7 @@ Resources:
     Properties:
       ApplicationName: !Ref FDPSElasticBeanstalkApplication
       EnvironmentName: FDPS-Environment
-      SolutionStackName: "64bit Amazon Linux 2023 v4.7.1 running Corretto 25"
+      SolutionStackName: "64bit Amazon Linux 2023 v4.8.0 running Corretto 17"
       VersionLabel: !Ref FDPSElasticBeanstalkApplicationVersion
       OptionSettings:
         - Namespace: aws:elasticbeanstalk:environment
